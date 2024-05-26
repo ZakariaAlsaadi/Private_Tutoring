@@ -11,6 +11,9 @@ const port = process.env.PORT || 4040;
 const server = http.createServer(app);
 
 
+const database = require("./db/connect");
+
+
 // Start the server
 app.get('/', (req,res) => {
     res.send('hi');
