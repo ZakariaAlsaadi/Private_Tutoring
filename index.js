@@ -9,14 +9,20 @@ app.use(bodyParser.json());
 app.use(express.json());
 const port = process.env.PORT || 4040;
 const server = http.createServer(app);
+const token = "5232088474:AAHHrA2KbFkHH5VhrOn68QR-rDwxdECLU3o";
 
 
 const database = require("./db/connect");
 
-
 // Start the server
 app.get('/', (req,res) => {
-    res.send('hi');
+
+    database.query("SELECT * FROM teachers", function (err, result, fields) {
+        if (err) throw err;
+        res.send(result);
+        
+      });
+
 });
 
 
