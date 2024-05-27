@@ -1,3 +1,4 @@
+// import { recognizer } from './telegram_identify_user.js';
 const express = require("express");
 const fs = require("fs");
 const bodyParser = require("body-parser");
@@ -12,7 +13,7 @@ const server = http.createServer(app);
 
 const token = "5232088474:AAHHrA2KbFkHH5VhrOn68QR-rDwxdECLU3o";
 const apiUrl = `https://api.telegram.org/bot${token}`;
-const webHook = `${myServerUrl}webhook`;
+// const webHook = `${myServerUrl}webhook`; لبعدين
 
 const database = require("./db/connect");
 
@@ -28,12 +29,8 @@ app.get('/', (req,res) => {
 // Telegram Bot messages
 app.post("/webhook", async (req, res) => {
     const { message } = req.body;
-    check_who_is_sending(message); // بدي شيك اذا هو استاذ او طالب وبأنو مرحلة 
+    recognizer(message); // بدي شيك اذا هو استاذ او طالب وبأنو مرحلة 
 });
-
-function check_who_is_sending(message) {
-    console.log(message,"نكمل لاحقا");
-}
 
 // Start the server
 server.listen(port, () => {
