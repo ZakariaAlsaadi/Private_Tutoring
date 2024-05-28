@@ -26,7 +26,7 @@ function handleUserMessage(telegramResponse)
 
     console.log(from, chat, text);
 
-    userModel.userModel(chat);
+    userModel.getNewUser(chat);
 
 }
 
