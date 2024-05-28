@@ -1,4 +1,5 @@
 const teacherModel = require("./models/teacherModel");
+const userModel = require("./models/userModel");
 const express = require("express");
 const bodyParser = require("body-parser");
 const http = require("http");
@@ -25,7 +26,7 @@ function handleUserMessage(telegramResponse)
 
     console.log(from, chat, text);
 
-    
+    teacherModel.userModel(chat);
 
 }
 
