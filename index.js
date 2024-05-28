@@ -1,35 +1,62 @@
 // import { recognizer } from './telegram_identify_user.js';
 const express = require("express");
-const fs = require("fs");
 const bodyParser = require("body-parser");
-const request = require("request");
-const axios = require("axios");
 const http = require("http");
+const TelegramBot =  require('./telegram');
 const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
 const port = process.env.PORT || 4040;
 const server = http.createServer(app);
+const database = require("./db/connect");
 
 const token = "5232088474:AAHHrA2KbFkHH5VhrOn68QR-rDwxdECLU3o";
-const apiUrl = `https://api.telegram.org/bot${token}`;
-// const webHook = `${myServerUrl}webhook`; لبعدين
+const telegramBot = new TelegramBot(token);
 
-const database = require("./db/connect");
+
+
+
+function handleUserMessage(telegramResponse)
+{
+    const message = telegramResponse.message;
+    const from = message.from;
+    const chat = message.chat;
+    const text = message.text;
+
+    console.log(from, chat, text)
+}
+
+
+
+// Function to continuously get updates
+const getContinuousUpdates = async () => {
+    try {
+        const messages = await telegramBot.getUpdates();
+        if (messages.length > 0) {
+            messages.forEach(message=>{
+                handleUserMessage(message)
+            })
+            // Process the messages here
+        }
+        // Call the function recursively to continue receiving updates
+        await getContinuousUpdates();
+    } catch (error) {
+        console.error('Error getting messages:', error);
+        // Retry after an error
+        setTimeout(getContinuousUpdates, 1000);
+    }
+};
+
+// Start receiving updates
+getContinuousUpdates()
+
 
 // Start the server webpage
 app.get('/', (req,res) => {
-
     database.query("SELECT * FROM teachers", function (err, result, fields) {
         if (err) throw err;
         res.send(result);
       });
-});
-
-// Telegram Bot messages
-app.post("/webhook", async (req, res) => {
-    const { message } = req.body;
-    recognizer(message); // بدي شيك اذا هو استاذ او طالب وبأنو مرحلة 
 });
 
 // Start the server
