@@ -16,7 +16,8 @@ function getNewUser (chat) {
     });
 }
 
-function teacher1other0 (chat) {
+function teacher1other0 (chat)  // محمد لاقي اسم
+{
     database.query(
         `SELECT teacher_profile_id, telegram_id  FROM telegram_user WHERE telegram_id = ${chat.id}`
     , function (err, result, fields) {
