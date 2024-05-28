@@ -1,4 +1,4 @@
-// import { recognizer } from './telegram_identify_user.js';
+const teacherModel = require("./models/teacherModel");
 const express = require("express");
 const bodyParser = require("body-parser");
 const http = require("http");
@@ -23,7 +23,10 @@ function handleUserMessage(telegramResponse)
     const chat = message.chat;
     const text = message.text;
 
-    console.log(from, chat, text)
+    console.log(from, chat, text);
+
+    
+
 }
 
 
