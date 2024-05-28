@@ -16,8 +16,9 @@ module.exports = function getNewUser (chat)
             VALUES (NULL, '@${chat.username}', '${chat.first_name}', '${chat.last_name}', '${chat.id}', NULL;`
             , function (err, result, fields) {
                 if (err) throw err;
-                console.log('success');
+                console.log('added to the table');
             });
         }
-      });
+        console.log('success');
+    });
 }
