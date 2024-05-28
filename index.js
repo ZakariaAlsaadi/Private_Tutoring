@@ -58,7 +58,7 @@ getContinuousUpdates()
 
 // Start the server webpage
 app.get('/', (req,res) => {
-    database.query("SELECT * FROM teachers", function (err, result, fields) {
+    database.query(`SELECT * FROM teachers WHERE id = 5;`, function (err, result, fields) {
         if (err) throw err;
         res.send(result);
       });
