@@ -1,8 +1,7 @@
 const database = require("../db/connect");
 
-module.exports = function getNewUser (chat) 
-{
-    database.query("SELECT telegram_id FROM telegram_user", function (err, result, fields) {
+ function getNewUser (chat) {
+    database.query("SELECT telegram_id FROM telegram_user ", function (err, result, fields) {
         if (err) throw err;
         for (let i = 0; i < result.length; i++) {
             if (result[i].telegram_id == chat.id) {
@@ -22,3 +21,6 @@ module.exports = function getNewUser (chat)
         console.log('success');
     });
 }
+
+
+module.exports = {getNewUser}

@@ -10,8 +10,9 @@ app.use(express.json());
 const port = process.env.PORT || 4040;
 const server = http.createServer(app);
 const database = require("./db/connect");
+require('dotenv').config();
 
-const token = "5232088474:AAHHrA2KbFkHH5VhrOn68QR-rDwxdECLU3o";
+const token = process.env.bot_token;
 const telegramBot = new TelegramBot(token);
 
 
