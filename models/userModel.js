@@ -1,6 +1,6 @@
 const database = require("../db/connect");
 
- function getNewUser (chat) {
+function getNewUser (chat) {
     database.query(`SELECT telegram_id FROM telegram_user WHERE telegram_id = ${chat.id}`,
             function (err, result, fields) {
         if (err) throw err;
@@ -15,4 +15,17 @@ const database = require("../db/connect");
         console.log('success');
     });
 }
-module.exports = {getNewUser}
+
+function teacher1other0 (chat) {
+    database.query(
+        `SELECT teacher_profile_id, telegram_id  FROM telegram_user WHERE telegram_id = ${chat.id}`
+    , function (err, result, fields) {
+    if (err) throw err;  
+        if (result[0].teacher_profile_id == null)
+            return 0;
+    return 1;
+    });
+}
+
+
+module.exports = {getNewUser, teacher1other0}
