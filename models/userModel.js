@@ -1,5 +1,6 @@
 const database = require("../db/connect");
 const TelegramBot = require("../telegram");
+const telegramBot = new TelegramBot;
 const teacherModel = require("./teacherModel");
 
 function getNewUser (chat) {
@@ -38,11 +39,11 @@ async function respondToNormalUser(message) {
           ],
           resize_keyboard: true,
         };
-        await TelegramBot.replyToButtonPressed("من انت ؟", message, replyKeyboard);
+        await telegramBot.replyToButtonPressed("من انت ؟", message, replyKeyboard);
       }
 
     else if (message.text == "انا استاذ") {
-        TelegramBot.sendMessage("ما هو اسمك", message.from.id);
+        telegramBot.sendMessage("ما هو اسمك", message.from.id);
 
         database.query(
             `INSERT INTO teachers (telegram_id) VALUES ('${message.chat.id}');`
@@ -58,7 +59,7 @@ async function respondToNormalUser(message) {
 }   else if (message.text == "ابحث عن مدرس") {
          
 }   else {
-    TelegramBot.sendMessage("اضغط على /start", message.from.id);
+    telegramBot.sendMessage("اضغط على /start", message.from.id);
       }
 }
 
