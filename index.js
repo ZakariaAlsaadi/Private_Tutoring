@@ -29,7 +29,7 @@ function handleUserMessage(telegramResponse)
 
     userModel.getNewUser(chat);
 
-    userModel.teacherOrNot(chat);
+    userModel.teacherOrNot(message);
 }
 
 

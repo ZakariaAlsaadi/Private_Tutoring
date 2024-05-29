@@ -7,7 +7,7 @@ class TelegramBot {
         this.botToken = botToken;
     }
 
-    async sendMessage(chatId, message) {
+    async sendMessage(message, chatId) {
         const url = `${TELEGRAM_API_URL}${this.botToken}/sendMessage`;
 
         try {
@@ -45,6 +45,14 @@ class TelegramBot {
             throw new Error(`Error getting updates: ${error.message}`);
         }
     }
+
+    async replyToButtonPressed(messageReplyed, message, replyKeyboard) {
+        axios.post(`${apiUrl}/sendMessage`, {
+          chat_id: message.chat.id,
+          text: `${messageReplyed}`,
+          reply_markup: JSON.stringify(replyKeyboard),
+        });
+      }
 }
 
 module.exports = TelegramBot;

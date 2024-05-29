@@ -1,4 +1,5 @@
 const database = require("../db/connect");
+const TelegramBot = require("../telegram");
 const teacherModel = require("./teacherModel");
 
 function getNewUser (chat) {
@@ -17,21 +18,44 @@ function getNewUser (chat) {
     });
 }
 
-function teacherOrNot (chat)  // محمد لاقي اسم
+function teacherOrNot (message)  // محمد لاقي اسم
 { 
      database.query( 
-        `SELECT teacher_profile_id, telegram_id  FROM telegram_user WHERE telegram_id = ${chat.id}`
+        `SELECT teacher_profile_id, telegram_id  FROM telegram_user WHERE telegram_id = ${message.chat.id}`
     , function (err, result, fields) {
     if (err) throw err;  
         if (result[0].teacher_profile_id == null)
-            respondToNormalUser(chat);
-        else  teacherModel.askForSignUpInfo(chat);
+            respondToNormalUser(message);
+        else  teacherModel.askForSignUpInfo(message);
     });
 }
 
-function respondToNormalUser() {
-    console.log('later')
+async function respondToNormalUser() {
+    if (message.text == "/start") {
+        const replyKeyboard = {
+          keyboard: [
+            [{ text: "ابحث عن مدرس" }, { text: "انا استاذ" }],
+          ],
+          resize_keyboard: true,
+        };
+        await TelegramBot.replyToButtonPressed("من انت ؟", message, replyKeyboard);
+      }
+
+    else if (message.text == "انا استاذ") {
+         
+}   else if (message.text == "ابحث عن مدرس") {
+         
+}   else {
+    TelegramBot.sendmessage("اضغط على /start", message.from.id);
+      }
 }
 
+function replyToButtonPressed(messageReplyed, message, replyKeyboard) {
+    axios.post(`${apiUrl}/sendMessage`, {
+      chat_id: message.chat.id,
+      text: `${messageReplyed}`,
+      reply_markup: JSON.stringify(replyKeyboard),
+    });
+  }
 
 module.exports = {getNewUser, teacherOrNot}
