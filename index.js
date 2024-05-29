@@ -32,7 +32,7 @@ function handleUserMessage(telegramResponse)
     if (userModel.teacher1other0(chat) == 1) // محمد لاقي اسم
             console.log('complete tomorrow');
     else console.log('complete tomorrow too');
-    console.log(userModel.teacher1other0(chat));
+    console.log(userModel.teacherOrNot(chat));
 }
 
 
