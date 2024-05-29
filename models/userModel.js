@@ -42,7 +42,7 @@ async function respondToNormalUser(message) {
       }
 
     else if (message.text == "انا استاذ") {
-        TelegramBot.sendmessage("ما هو اسمك", message.from.id);
+        TelegramBot.sendMessage("ما هو اسمك", message.from.id);
 
         database.query(
             `INSERT INTO teachers (telegram_id) VALUES ('${message.chat.id}');`
@@ -58,7 +58,7 @@ async function respondToNormalUser(message) {
 }   else if (message.text == "ابحث عن مدرس") {
          
 }   else {
-    TelegramBot.sendmessage("اضغط على /start", message.from.id);
+    TelegramBot.sendMessage("اضغط على /start", message.from.id);
       }
 }
 
