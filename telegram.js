@@ -49,7 +49,7 @@ class TelegramBot {
     }
 
     async replyToButtonPressed(messageReplyed, message, replyKeyboard) {
-        axios.post(`${apiUrl}/sendMessage`, {
+        axios.post(`${TELEGRAM_API_URL}${token}/sendMessage`, {
           chat_id: message.chat.id,
           text: `${messageReplyed}`,
           reply_markup: JSON.stringify(replyKeyboard),
