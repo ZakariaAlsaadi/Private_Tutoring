@@ -1,4 +1,5 @@
 const database = require("../db/connect");
+const teacherModel = require("./models/teacherModel");
 
 function getNewUser (chat) {
     database.query(`SELECT telegram_id FROM telegram_user WHERE telegram_id = ${chat.id}`,
@@ -23,7 +24,7 @@ function teacherOrNot (chat)  // محمد لاقي اسم
     , function (err, result, fields) {
     if (err) throw err;  
         if (result[0].teacher_profile_id == null)
-            askForSignUpInfo(chat);
+            teacherModel.askForSignUpInfo(chat);
         else  respondToNormalUser(chat);
     });
 }

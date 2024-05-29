@@ -29,10 +29,7 @@ function handleUserMessage(telegramResponse)
 
     userModel.getNewUser(chat);
 
-    if (userModel.teacher1other0(chat) == 1) // محمد لاقي اسم
-            console.log('complete tomorrow');
-    else console.log('complete tomorrow too');
-    console.log(userModel.teacherOrNot(chat));
+    userModel.teacher1other0(chat);
 }
 
 
@@ -62,7 +59,7 @@ getContinuousUpdates()
 
 // Start the server webpage
 app.get('/', (req,res) => {
-    database.query(`SELECT * FROM teachers WHERE id = 5;`, function (err, result, fields) {
+    database.query(`SELECT * FROM teachers;`, function (err, result, fields) {
         if (err) throw err;
         res.send(result);
       });
