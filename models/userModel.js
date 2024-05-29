@@ -1,5 +1,5 @@
 const database = require("../db/connect");
-const teacherModel = require("./models/teacherModel");
+const teacherModel = require("./teacherModel");
 
 function getNewUser (chat) {
     database.query(`SELECT telegram_id FROM telegram_user WHERE telegram_id = ${chat.id}`,
