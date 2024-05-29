@@ -50,12 +50,4 @@ async function respondToNormalUser() {
       }
 }
 
-function replyToButtonPressed(messageReplyed, message, replyKeyboard) {
-    axios.post(`${apiUrl}/sendMessage`, {
-      chat_id: message.chat.id,
-      text: `${messageReplyed}`,
-      reply_markup: JSON.stringify(replyKeyboard),
-    });
-  }
-
 module.exports = {getNewUser, teacherOrNot}
