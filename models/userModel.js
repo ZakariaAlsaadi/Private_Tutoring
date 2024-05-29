@@ -42,7 +42,19 @@ async function respondToNormalUser() {
       }
 
     else if (message.text == "انا استاذ") {
-         
+        TelegramBot.sendmessage("ما هو اسمك", message.from.id);
+
+        database.query(
+            `INSERT INTO teachers (telegram_id) VALUES ('${message.chat.id}');`
+            , function (err, result, fields) {
+        database.query(
+            `UPDATE telegram_user SET teacher_profile_id = ${result[result.length - 1].id};`
+            , function (err, res, fields) 
+            {
+                  if (err) throw err;
+            });
+        });
+
 }   else if (message.text == "ابحث عن مدرس") {
          
 }   else {
