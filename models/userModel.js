@@ -30,7 +30,7 @@ function teacherOrNot (message)  // محمد لاقي اسم
     });
 }
 
-async function respondToNormalUser() {
+async function respondToNormalUser(message) {
     if (message.text == "/start") {
         const replyKeyboard = {
           keyboard: [
