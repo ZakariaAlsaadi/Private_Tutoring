@@ -24,9 +24,13 @@ function teacherOrNot (chat)  // محمد لاقي اسم
     , function (err, result, fields) {
     if (err) throw err;  
         if (result[0].teacher_profile_id == null)
-            teacherModel.askForSignUpInfo(chat);
-        else  respondToNormalUser(chat);
+            respondToNormalUser(chat);
+        else  teacherModel.askForSignUpInfo(chat);
     });
+}
+
+function respondToNormalUser() {
+    console.log('later')
 }
 
 

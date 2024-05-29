@@ -34,4 +34,8 @@ function updateSignUp (text,telegramId,step_number)
   });
 }
 
-module.exports = {getTeachers, updateSignUp}
+function askForSignUpInfo () {
+  console.log('askForSingInfo')
+}
+
+module.exports = {getTeachers, updateSignUp, askForSignUpInfo}
