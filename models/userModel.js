@@ -22,12 +22,12 @@ function getNewUser (chat) {
 function teacherOrNot (message)  // محمد لاقي اسم
 { 
      database.query( 
-        `SELECT teacher_profile_id, telegram_id  FROM telegram_user WHERE telegram_id = ${message.chat.id}`
+        `SELECT telegram_id FROM teachers WHERE telegram_id = ${message.chat.id}`
     , function (err, result, fields) {
     if (err) throw err;  
-        if (result[0].teacher_profile_id == null)
-            respondToNormalUser(message);
-        else  teacherModel.askForSignUpInfo(message);
+        if (result.length != 0)
+            teacherModel.askForSignUpInfo(message);            
+        else  respondToNormalUser(message);
     });
 }
 
