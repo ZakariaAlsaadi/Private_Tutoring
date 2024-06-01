@@ -115,7 +115,7 @@ async function telegramButtons (message, step_number) {
         else if (step_number == 7) {
                 if (message.text == "في منزلي فقط" || message.text == "في منزلهم فقط" || message.text == "لا يهم") {
                   telegramBot.sendMessage("اين مكان تواجدك", message.from.id);
-                  updateSignUp(message, step_number)
+                  updateSignUp(message, step_number);
                 }
                 else {
                   const replyKeyboard = {
@@ -134,9 +134,20 @@ async function telegramButtons (message, step_number) {
         }
 
         else if (step_number == 8) {
-          
+          updateSignUp(message, step_number);
+          sendMsg("اين مكان تواجدك", message.from.id);
         }
 
+        else if (step_number == 9) {
+                if (message.text == "نعم") 
+                  telegramBot.sendMessage("ادخل اسم المنطقة", message.from.id);
+                else if (message.text == "لا") {
+
+          }
+                else {
+                  
+                }
+        }
 
 }
 
