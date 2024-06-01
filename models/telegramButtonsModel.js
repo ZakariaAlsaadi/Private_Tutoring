@@ -9,10 +9,26 @@ class TelegramButtonsModel {
         teacherModel.updateSignUp(message, 0);
     }
     async telegramButtons1 (message) {
-        
+        telegramBot.sendMessage("ما هو رقم الهاتف ؟", message.from.id);
+        teacherModel.updateSignUp(message, 1);
     }
     async telegramButtons2 (message) {
-        
+
+        if (message.text == "ذكر" || message.text == "انثى") {
+            telegramBot.sendMessage(
+                "ما هو اعلى مرتب من الممكن ان تأخذه في الساعة",
+                message.from.id
+              );
+            teacherModel.updateSignUp(message, 2);
+        }
+
+        else {
+        const replyKeyboard = {
+            keyboard: [[{ text: "انثى" }, { text: "ذكر" }]],
+            resize_keyboard: true,
+          };
+          await telegramBot.sendMessage("هل انت ذكر ام انثى ؟", message, replyKeyboard);
+        }
     }
     async telegramButtons3 (message) {
         
