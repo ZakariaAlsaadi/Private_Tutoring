@@ -7,12 +7,12 @@ const telegramBot = new TelegramBot;
 async function telegramButtons (meesage, step_number) {
 
         if (step_number == 0) {
-            telegramBot.sendMessage("ما هو لقبك (الكنية)", message.from.id);
+            telegramBot.sendMessage("ما هو لقبك (الكنية)", message.chat.id);
             teacherModel.updateSignUp(message, 0);
         }
 
         else if (step_number == 1) {
-            telegramBot.sendMessage("ما هو رقم الهاتف ؟", message.from.id);
+            telegramBot.sendMessage("ما هو رقم الهاتف ؟", message.chat.id);
             teacherModel.updateSignUp(message, 1);
         }
 
