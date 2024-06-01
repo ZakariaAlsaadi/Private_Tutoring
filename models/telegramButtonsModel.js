@@ -55,7 +55,66 @@ async function telegramButtons (message, step_number) {
                 }
         }
         
-        
+        else if (step_number == 4) {
+          telegramBot.sendMessage(
+            "ما هو اقل مرتب من الممكن ان تأخذه في الساعة",
+            message.from.id
+          );
+        updateSignUp(message, step_number);
+        }
+
+        else if (step_number == 4) {
+          const replyKeyboard = {
+            keyboard: [
+              [{ text: "اناث فقط" }, { text: "ذكور فقط" }],
+              [{ text: "لا يهم" }],
+            ],
+            resize_keyboard: true,
+          };
+          await telegramBot.sendMessage(
+            "هل ترغب بتدريس ذكور فقط ام اناث فقط ام لا يهم",
+            message.chat.id,
+            replyKeyboard
+          );
+          updateSignUp(message, step_number);
+        }
+
+        else if (step_number == 5) {
+                if (message.text == "ذكور فقط" || message.text == "اناث فقط" || message.text == "لا يهم") {
+                  updateSignUp(message, step_number);
+                  const replyKeyboard = {
+                    keyboard: [
+                      [{ text: "في منزلهم فقط" }, { text: "في منزلي فقط" }],
+                      [{ text: "لا يهم" }],
+                    ],
+                    resize_keyboard: true,
+                  };
+                  await telegramBot.sendMessage(
+                    "اين ترغب بتدريس الطالب/ة",
+                    message.chat.id,
+                    replyKeyboard
+                  );
+                }
+
+                else {
+                  const replyKeyboard = {
+                    keyboard: [
+                      [{ text: "اناث فقط" }, { text: "ذكور فقط" }],
+                      [{ text: "لا يهم" }],
+                    ],
+                    resize_keyboard: true,
+                  };
+                  await telegramBot.sendMessage(
+                    "هل ترغب بتدريس ذكور فقط ام اناث فقط ام لا يهم",
+                    message.chat.id,
+                    replyKeyboard
+                  );
+                }
+        }
+
+        else if (step_number == 6) {
+
+        }
 
 
 }
