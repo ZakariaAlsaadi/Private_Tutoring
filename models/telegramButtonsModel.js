@@ -1,6 +1,6 @@
 const database = require("../db/connect");
 const TelegramBot = require("../telegram");
-const teacherModel = require("./teacherModel")
+const teacherModel = require("./teacherModel");
 const telegramBot = new TelegramBot;
 
 
