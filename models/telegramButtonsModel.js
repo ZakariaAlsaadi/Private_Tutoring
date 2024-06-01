@@ -177,7 +177,6 @@ async function telegramButtons (message, step_number) {
                   addLocation(message);
                 }
         }
-
 }
 
 module.exports = {telegramButtons};
