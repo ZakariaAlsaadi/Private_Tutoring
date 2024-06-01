@@ -2,6 +2,38 @@ const database = require("../db/connect");
 const TelegramBot = require("../telegram");
 const telegramBot = new TelegramBot;
 
+function addLocation (message) {
+  database.query(`SELECT * FROM sign_up_steps`, function (err, teacher_step, fields) 
+    {  
+      if (err) throw err;
+      if (message.text == "لا") {
+           database.query(
+              `UPDATE teachers SET sign_up_step = ${step_number} + 1 WHERE telegram_id = ${message.chat.id};`
+            , function (err, result, fields) 
+      {
+            if (err) throw err;
+              console.log('success');
+      });
+      }
+      else {
+      
+        database.query(`SELECT locations FROM teachers WHERE telegram_id = ${message.chat.id}`, function (err, result, fields) 
+        {  
+          if (err) throw err;
+
+          let addedLocation = result[0].locations + " , " + message.text;
+              database.query(
+                `UPDATE teachers SET ${teacher_step[9].the_step} = '${addedLocation}' WHERE telegram_id = ${message.chat.id};`
+              , function (err, resu, fields) 
+        {
+              if (err) throw err;
+              console.log('success');
+        });
+      });
+      }
+    });
+}
+
 function updateSignUp (message,step_number) {
     step_number = Math.min(step_number,10);
     database.query(`SELECT * FROM sign_up_steps`, function (err, teacher_step, fields) 
@@ -135,17 +167,14 @@ async function telegramButtons (message, step_number) {
 
         else if (step_number == 8) {
           updateSignUp(message, step_number);
-          sendMsg("اين مكان تواجدك", message.from.id);
+          telegramBot.sendMessage("اين مكان تواجدك", message.from.id);
         }
 
         else if (step_number == 9) {
                 if (message.text == "نعم") 
                   telegramBot.sendMessage("ادخل اسم المنطقة", message.from.id);
-                else if (message.text == "لا") {
-
-          }
                 else {
-                  
+                  addLocation(message);
                 }
         }
 
