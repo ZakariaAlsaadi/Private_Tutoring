@@ -49,7 +49,7 @@ class TelegramBot {
     async  sendMessage(Msg, Id, replyKeyboard = {}) {
         let query = {chat_id: Id, text: Msg };
         if(Object.keys(replyKeyboard).length === 0){      query['reply_markup'] = JSON.stringify(replyKeyboard);
-        }  axios.post(`${TELEGRAM_API_URL}${this.botToken}/sendMessage`, query);
+        }  axios.post(`${TELEGRAM_API_URL}${this.botToken}/sendMessage`, query.chat_id, query.text, query.reply_markup);
       }
 }
 
