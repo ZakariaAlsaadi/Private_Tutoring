@@ -2,11 +2,9 @@ const axios = require('axios');
 
 const TELEGRAM_API_URL = 'https://api.telegram.org/bot';
 
-const token = process.env.bot_token;
-
 class TelegramBot {
-    constructor(botToken) {
-        this.botToken = botToken;
+    constructor() {
+        this.botToken = process.env.bot_token;
     }
 /*
     async sendMessage(message, chatId) {
@@ -48,20 +46,11 @@ class TelegramBot {
         }
     }
 
-    async replyToButtonPressed(messageReplyed, message, replyKeyboard) {
-        axios.post(`${TELEGRAM_API_URL}${token}/sendMessage`, {
-          chat_id: message.chat.id,
-          text: `${messageReplyed}`,
-          reply_markup: JSON.stringify(replyKeyboard),
-        });
+    async  sendMessage(Msg, Id, replyKeyboard = {}) {
+        let query = {chat_id: Id, text: Msg };
+        if(Object.keys(replyKeyboard).length === 0){      query['reply_markup'] = JSON.stringify(replyKeyboard);
+        }  axios.post(`${TELEGRAM_API_URL}${this.botToken}/sendMessage`, query);
       }
-
-      sendMessage(Msg, Id) {
-        if (Id == null) Id = "1422228851";
-        axios.post(`${TELEGRAM_API_URL}${token}/sendMessage`, { chat_id: Id, text: Msg });
-      }
-
-
 }
 
 module.exports = TelegramBot;

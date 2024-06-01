@@ -39,7 +39,7 @@ async function respondToNormalUser(message) {
           ],
           resize_keyboard: true,
         };
-        await telegramBot.replyToButtonPressed("من انت ؟", message, replyKeyboard);
+        await telegramBot.sendMessage("من انت ؟", message.chat.id, replyKeyboard);
       }
 
     else if (message.text == "انا استاذ") {
