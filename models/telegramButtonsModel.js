@@ -21,12 +21,12 @@ async function telegramButtons (message, step_number) {
 
         if (step_number == 0) {
             telegramBot.sendMessage("ما هو لقبك (الكنية)", message.chat.id);
-            updateSignUp(message, 0);
+            updateSignUp(message, step_number);
         }
 
         else if (step_number == 1) {
             telegramBot.sendMessage("ما هو رقم الهاتف ؟", message.chat.id);
-            updateSignUp(message, 1);
+            updateSignUp(message, step_number);
         }
 
         else if (step_number == 2) {
@@ -35,7 +35,7 @@ async function telegramButtons (message, step_number) {
                     "ما هو اعلى مرتب من الممكن ان تأخذه في الساعة",
                     message.from.id
                   );
-                updateSignUp(message, 2);
+                updateSignUp(message, step_number);
             }
     
             else {
