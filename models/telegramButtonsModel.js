@@ -43,7 +43,7 @@ async function telegramButtons (message, step_number) {
                 keyboard: [[{ text: "انثى" }, { text: "ذكر" }]],
                 resize_keyboard: true,
               };
-              await telegramBot.sendMessage("هل انت ذكر ام انثى ؟", message, replyKeyboard);
+              await telegramBot.sendMessage("هل انت ذكر ام انثى ؟", message.chat.id, replyKeyboard);
             }
         }
 
