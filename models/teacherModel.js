@@ -39,7 +39,7 @@ function askForSignUpInfo (message) {
   database.query(`SELECT * FROM teachers WHERE telegram_id = ${message.chat.id};`
   , function (err, result, fields) {
           if (result[0].sign_up_step < 11) 
-    telegramButtonsModel.telegramButtons (meesage,result[0].sign_up_step);
+    telegramButtonsModel.telegramButtons (message,result[0].sign_up_step);
           else
     console.log('later');
   });
