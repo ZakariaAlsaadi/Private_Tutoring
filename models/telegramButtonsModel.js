@@ -4,7 +4,7 @@ const teacherModel = require("./teacherModel")
 const telegramBot = new TelegramBot;
 
 
-async function telegramButtons (meesage, step_number) {
+async function telegramButtons (message, step_number) {
 
         if (step_number == 0) {
             telegramBot.sendMessage("ما هو لقبك (الكنية)", message.chat.id);
