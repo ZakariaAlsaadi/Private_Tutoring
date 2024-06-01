@@ -8,7 +8,7 @@ function updateSignUp (message,step_number) {
     {  
       if (err) throw err;
               database.query(
-                `UPDATE teachers SET ${teacher_step[step_number].the_step} = '${message.text}' , sign_up_step = ${step_number} WHERE telegram_id = ${message.chat.id};`
+                `UPDATE teachers SET ${teacher_step[step_number].the_step} = '${message.text}' , sign_up_step = ${step_number} + 1 WHERE telegram_id = ${message.chat.id};`
               , function (err, result, fields) 
         {
               if (err) throw err;
