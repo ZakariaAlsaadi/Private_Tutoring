@@ -131,7 +131,10 @@ async function telegramButtons (message, step_number) {
                     replyKeyboard
                   );
                 }
+        }
 
+        else if (step_number == 8) {
+          
         }
 
 
