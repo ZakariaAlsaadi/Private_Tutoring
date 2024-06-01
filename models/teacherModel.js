@@ -1,6 +1,5 @@
 const database = require("../db/connect");
-const TelegramButtonsModel = require("./telegramButtonsModel");
-const telegramButtonsModel = new TelegramButtonsModel;
+const telegramButtonsModel = require("./telegramButtonsModel");
 
 function getTeachers () {
     database.query("SELECT * FROM teachers", function (err, result, fields) {
@@ -40,7 +39,7 @@ function askForSignUpInfo (message) {
   database.query(`SELECT * FROM teachers WHERE telegram_id = ${message.chat.id};`
   , function (err, result, fields) {
           if (result[0].sign_up_step < 11) 
-    telegramButtonsModel.telegramButtons`${result[0].sign_up_step}`(meesage);
+    telegramButtonsModel.telegramButtons (meesage,result[0].sign_up_step);
           else
     console.log('later');
   });
