@@ -20,14 +20,14 @@ function updateFirstName (text,telegramId) {
 
 }
 */
-function updateSignUp (text,telegramId,step_number) 
+function updateSignUp (message,step_number) 
 {
-
+  step_number = Math.min(step_number,10);
   database.query(`SELECT * FROM sign_up_steps`, function (err, teacher_step, fields) 
   {  
     if (err) throw err;
             database.query(
-              `UPDATE teachers SET ${teacher_step[step_number].the_step} = '${text}' WHERE telegram_id = ${telegramId};`
+              `UPDATE teachers SET ${teacher_step[step_number].the_step} = '${message.text}' , sign_up_step = ${step_number} WHERE telegram_id = ${message.chat.id};`
             , function (err, result, fields) 
       {
             if (err) throw err;
@@ -39,8 +39,10 @@ function updateSignUp (text,telegramId,step_number)
 function askForSignUpInfo (message) {
   database.query(`SELECT * FROM teachers WHERE telegram_id = ${message};`
   , function (err, result, fields) {
+          if (result[0].sign_up_step < 11) 
     telegramButtonsModel.telegramButtons`${result[0].sign_up_step}`(meesage);
-          updateSignUp(message.text , message.chat.id , result[0].sign_up_step);
+          else
+    console.log('later');
   });
 }
 

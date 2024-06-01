@@ -1,10 +1,12 @@
 const database = require("../db/connect");
 const TelegramBot = require("../telegram");
+const teacherModel = require("./teacherModel")
 const telegramBot = new TelegramBot;
 
 class TelegramButtonsModel {
     async telegramButtons0 (message) {
         telegramBot.sendMessage("ما هو لقبك (الكنية)", message.from.id);
+        teacherModel.updateSignUp(message, 0);
     }
     async telegramButtons1 (message) {
         
