@@ -19,8 +19,7 @@ function updateFirstName (text,telegramId) {
 
 }
 */
-function updateSignUp (message,step_number) 
-{
+function updateSignUp (message,step_number) {
   step_number = Math.min(step_number,10);
   database.query(`SELECT * FROM sign_up_steps`, function (err, teacher_step, fields) 
   {  
