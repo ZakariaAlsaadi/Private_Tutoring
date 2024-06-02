@@ -1,3 +1,7 @@
+const database = require("../db/connect");
+const TelegramBot = require("../telegram");
+const telegramBot = new TelegramBot;
+
 async function subjectsButtons (askingForSubjectOrClass, message, subjectOrClass) {
 
     if (subjectOrClass == "subject") {
