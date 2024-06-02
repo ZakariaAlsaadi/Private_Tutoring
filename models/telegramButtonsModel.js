@@ -16,7 +16,7 @@ function addLocation (message) {
               console.log('success');
       });
 
-      subjectsModel.subjectsButtons();
+      subjectsModel.subjectsButtons("اختر المادة" , message , 'subject');
 
       }
       else {

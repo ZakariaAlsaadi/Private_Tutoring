@@ -8,9 +8,13 @@ async function subjectsButtons (askingForSubjectOrClass, message, subjectOrClass
         sqlTable = 'subjects';
         sqlColumn = 'subject';
     }
-    else {
+    else if (subjectOrClass == "subject") {
         sqlTable = 'classes';
         sqlColumn = 'class_name';
+    }
+    else {
+        console.log('error , you didnt choose subject or class');
+        return 0 ;
     }
 
     database.query(`SELECT ${sqlColumn} FROM ${sqlTable}`, async function (err, subjectOrClassList, fields) 
