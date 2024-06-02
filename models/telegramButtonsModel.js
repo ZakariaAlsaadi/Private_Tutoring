@@ -15,6 +15,9 @@ function addLocation (message) {
             if (err) throw err;
               console.log('success');
       });
+
+      subjectsModel.subjectsButtons();
+
       }
       else {
       
