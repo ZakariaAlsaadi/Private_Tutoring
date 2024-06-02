@@ -18,4 +18,4 @@ function askForSignUpInfo (message) {
   });
 }
 
-module.exports = {getTeachers, updateSignUp, askForSignUpInfo}
+module.exports = {getTeachers, askForSignUpInfo}
