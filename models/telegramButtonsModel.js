@@ -9,7 +9,7 @@ function addLocation (message) {
       if (err) throw err;
       if (message.text == "لا") {
            database.query(
-              `UPDATE teachers SET sign_up_step = ${step_number} + 1 WHERE telegram_id = ${message.chat.id};`
+              `UPDATE teachers SET sign_up_step = 10 WHERE telegram_id = ${message.chat.id};`
             , function (err, result, fields) 
       {
             if (err) throw err;
@@ -27,7 +27,7 @@ function addLocation (message) {
 
           let addedLocation = result[0].locations + " , " + message.text;
               database.query(
-                `UPDATE teachers SET ${teacher_step[9].the_step} = '${addedLocation}' WHERE telegram_id = ${message.chat.id};`
+                `UPDATE teachers SET ${teacher_step[8].the_step} = '${addedLocation}' WHERE telegram_id = ${message.chat.id};`
               , function (err, resu, fields) 
         {
               if (err) throw err;
