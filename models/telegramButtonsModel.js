@@ -1,6 +1,7 @@
 const database = require("../db/connect");
 const TelegramBot = require("../telegram");
 const telegramBot = new TelegramBot;
+const subjectsModel = require("./subjectsModel")
 
 function addLocation (message) {
   database.query(`SELECT * FROM sign_up_steps`, function (err, teacher_step, fields) 
@@ -35,7 +36,6 @@ function addLocation (message) {
 }
 
 function updateSignUp (message,step_number) {
-    step_number = Math.min(step_number,10);
     database.query(`SELECT * FROM sign_up_steps`, function (err, teacher_step, fields) 
     {  
       if (err) throw err;
@@ -176,6 +176,10 @@ async function telegramButtons (message, step_number) {
                 else {
                   addLocation(message);
                 }
+        }
+
+        else if (step_number == 10) {
+          subjectsModel.insertSubjects(message);
         }
 }
 
