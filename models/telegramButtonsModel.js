@@ -106,7 +106,7 @@ async function telegramButtons (message, step_number) {
         else if (step_number == 5) {
           const replyKeyboard = {
             keyboard: [
-              [{ text: "اناث فقط" }, { text: "ذكور فقط" }],
+              [{ text: "انثى" }, { text: "ذكر" }],
               [{ text: "لا يهم" }],
             ],
             resize_keyboard: true,
@@ -120,7 +120,7 @@ async function telegramButtons (message, step_number) {
         }
 
         else if (step_number == 6) {
-                if (message.text == "ذكور فقط" || message.text == "اناث فقط" || message.text == "لا يهم") {
+                if (message.text == "ذكر" || message.text == "انثى" || message.text == "لا يهم") {
                   updateSignUp(message, step_number);
                   const replyKeyboard = {
                     keyboard: [
@@ -139,7 +139,7 @@ async function telegramButtons (message, step_number) {
                 else {
                   const replyKeyboard = {
                     keyboard: [
-                      [{ text: "اناث فقط" }, { text: "ذكور فقط" }],
+                      [{ text: "انثى" }, { text: "ذكر" }],
                       [{ text: "لا يهم" }],
                     ],
                     resize_keyboard: true,
