@@ -60,10 +60,10 @@ async function respondToNormalUser(message) {
             });
         });
     });
-
-}   else if (message.text == "ابحث عن مدرس") {
-         console.log('later suckers');
-}   else 
+}
+    else if (message.text == "ابحث عن مدرس") 
+            searchModel.searchingForTeachers(message);
+    else 
             telegramBot.sendMessage("اضغط على /start لاظهار الخدمات المتاحة", message.from.id);   
 }
 
