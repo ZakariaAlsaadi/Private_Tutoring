@@ -36,7 +36,7 @@ function stepMinusTwo (message) {
 
 function insertSubjects (message) {
         database.query(
-          `INSERT INTO teacher_subject_class (teacher_telegram_id, subject_id, class_id) VALUES ('${message.chat.id}', '${message.text}')`
+          `INSERT INTO teacher_subject_class (teacher_telegram_id, subject_id) VALUES ('${message.chat.id}', '${message.text}')`
           , function (err, result, fields) 
           {  if (err) throw err; 
            });
