@@ -156,7 +156,7 @@ function subjectsSection (message,step_number) {
         else if (step_number == 12) {
           if (message.text == "نعم") {
             stepMinusTwo(message);
-            subjectsModel.subjectsButtons("اختر المادة" , message , 'subject');
+            subjectsButtons("اختر المادة" , message , 'subject');
           }
           else if (message.text == "لا") {
             stepPlus(message);
