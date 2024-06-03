@@ -4,13 +4,6 @@ const telegramBot = new TelegramBot;
 const telegramButtonsModel = require("./telegramButtonsModel");
 const searchModel = require("./searchModel");
 
-function getTeachers () {
-    database.query("SELECT * FROM teachers", function (err, result, fields) {
-        if (err) throw err;
-        return result;
-      });
-}
-
 function askForSignUpInfo (message) {
   database.query(`SELECT * FROM teachers WHERE telegram_id = ${message.chat.id};`
   , async function (err, result, fields) {
@@ -43,4 +36,4 @@ function askForSignUpInfo (message) {
   });
 }
 
-module.exports = {getTeachers, askForSignUpInfo}
+module.exports = {askForSignUpInfo}

@@ -124,7 +124,7 @@ async function telegramButtons (message, step_number) {
                   updateSignUp(message, step_number);
                   const replyKeyboard = {
                     keyboard: [
-                      [{ text: "في منزلهم فقط" }, { text: "في منزلي فقط" }],
+                      [{ text: "منزل الطالب" }, { text: "منزل الاستاذ" }],
                       [{ text: "لا يهم" }],
                     ],
                     resize_keyboard: true,
@@ -153,14 +153,14 @@ async function telegramButtons (message, step_number) {
         }
 
         else if (step_number == 7) {
-                if (message.text == "في منزلي فقط" || message.text == "في منزلهم فقط" || message.text == "لا يهم") {
+                if (message.text == "منزل الاستاذ" || message.text == "منزل الطالب" || message.text == "لا يهم") {
                   telegramBot.sendMessage("اين مكان تواجدك", message.from.id);
                   updateSignUp(message, step_number);
                 }
                 else {
                   const replyKeyboard = {
                     keyboard: [
-                      [{ text: "في منزلهم فقط" }, { text: "في منزلي فقط" }],
+                      [{ text: "منزل الطالب" }, { text: "منزل الاستاذ" }],
                       [{ text: "لا يهم" }],
                     ],
                     resize_keyboard: true,
