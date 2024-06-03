@@ -50,7 +50,7 @@ function insertClass (message) {
     {  if (err) throw err; 
 
       database.query(
-        `UPDATE teacher_subject_class SET class_id = ${message.text} WHERE id = ${result[result.length -1].id}`
+        `UPDATE teacher_subject_class SET class_id = '${message.text}' WHERE id = ${result[result.length -1].id}`
         , function (err, result, fields) 
         {  if (err) throw err;  });
     });
