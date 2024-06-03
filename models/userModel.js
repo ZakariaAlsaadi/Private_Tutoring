@@ -62,7 +62,7 @@ async function respondToNormalUser(message) {
     });
 }
     else if (message.text == "ابحث عن مدرس") 
-            searchModel.searchingForTeachers(message);
+            searchModel.getSearchingStep(message);
     else 
             telegramBot.sendMessage("اضغط على /start لاظهار الخدمات المتاحة", message.from.id);   
 }

@@ -12,6 +12,7 @@ function getTeachers () {
 function askForSignUpInfo (message) {
   database.query(`SELECT * FROM teachers WHERE telegram_id = ${message.chat.id};`
   , function (err, result, fields) {
+    if (err) throw err;
           if (result[0].sign_up_step < 13) 
     telegramButtonsModel.telegramButtons (message,result[0].sign_up_step);
           else {
@@ -22,7 +23,7 @@ function askForSignUpInfo (message) {
                     });
                   }
                   else if (message.text == "ابحث عن مدرس" ) 
-                        searchModel.searchingForTeachers(message);
+                        searchModel.getSearchingStep(message);
                   else 
                         telegramBot.sendMessage("اضغط على /start لاظهار الخدمات المتاحة", message.from.id);
           }
