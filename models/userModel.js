@@ -63,9 +63,8 @@ async function respondToNormalUser(message) {
 
 }   else if (message.text == "ابحث عن مدرس") {
          console.log('later suckers');
-}   else {
-    telegramBot.sendMessage("اضغط على /start لاظهار الخدمات المتاحة", message.from.id);
-      }
+}   else 
+            telegramBot.sendMessage("اضغط على /start لاظهار الخدمات المتاحة", message.from.id);   
 }
 
 module.exports = {getNewUser, teacherOrNot}

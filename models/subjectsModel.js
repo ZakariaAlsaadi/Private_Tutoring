@@ -116,7 +116,7 @@ async function subjectsButtons (askingForSubjectOrClass, message, subjectOrClass
     }
 }
 
-function subjectsSection (message,step_number) {
+async function subjectsSection (message,step_number) {
         if (step_number == 10) {
           database.query(`SELECT subject FROM subjects`, async function (err, result, fields) 
           {  
@@ -160,7 +160,12 @@ function subjectsSection (message,step_number) {
           }
           else if (message.text == "لا") {
             stepPlus(message);
-            telegramBot.sendMessage("تهانينا لقد تم تسجيل حسابك بنجاح",message.chat.id)
+            const replyKeyboard = {
+              keyboard: [[{ text: "ابحث عن مدرس" },{ text: "تعديل" }],],
+              resize_keyboard: true,
+            };
+            await telegramBot.sendMessage("تهانينا لقد تم تسجيل حسابك بنجاح", message.chat.id, replyKeyboard);
+            
           }
           else {
             telegramBot.sendMessage('اجب بنعم او لا',message.chat.id);
