@@ -19,9 +19,13 @@ function askForSignUpInfo (message) {
     telegramButtonsModel.telegramButtons (message,result[0].sign_up_step);
           else {
                   if (message.text == "تعديل") {
-                    database.query("UPDATE teachers SET sign_up_step = 0 ;", function (err, result, fields) {
+                    database.query(`UPDATE teachers SET sign_up_step = 0 ;`, function (err, result, fields) {
                       if (err) throw err;
+                      database.query(`DElETE FROM teacher_subject_class WHERE teacher_telegram_id = '${message.chat.id}';`
+                      , function (err, result, fields) {
+                        if (err) throw err;
                       telegramBot.sendMessage("ما هو اسمك", message.from.id);
+                      });
                     });
                   }
                   else if (message.text == "/start") {
