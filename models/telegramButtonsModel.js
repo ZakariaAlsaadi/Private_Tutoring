@@ -191,7 +191,7 @@ async function telegramButtons (message, step_number) {
         }
 
         else {
-          subjectsModel.insertSubjects(message, step_number);
+          subjectsModel.subjectsSection(message, step_number);
         }
 }
 

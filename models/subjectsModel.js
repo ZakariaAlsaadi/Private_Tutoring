@@ -8,13 +8,11 @@ function stepPlus (message) {
     , function (err, teacher_step, fields) 
     {  
       if (err) throw err;
-
         database.query(
           `UPDATE teachers SET sign_up_step = ${teacher_step[0].sign_up_step} + 1 WHERE telegram_id = ${message.chat.id};`
           , function (err, result, fields) 
               {
                   if (err) throw err;
-                  console.log('success');
         });
   });
 }
@@ -37,12 +35,11 @@ function stepMinusTwo (message) {
 }
 
 function insertSubjects (message) {
-
         database.query(
           `INSERT INTO teacher_subject_class (teacher_telegram_id, subject_id, class_id) VALUES ('${message.chat.id}', '${message.text}')`
           , function (err, result, fields) 
-          {  if (err) throw err;  });
-    
+          {  if (err) throw err; 
+           });
   stepPlus(message);
 }
 
@@ -119,15 +116,15 @@ async function subjectsButtons (askingForSubjectOrClass, message, subjectOrClass
     }
 }
 
-function insertSubjects (message,step_number) {
+function subjectsSection (message,step_number) {
         if (step_number == 10) {
           database.query(`SELECT subject FROM subjects`, async function (err, result, fields) 
           {  
             if (err) throw err;
             result = JSON.stringify(result);
             if (result.includes(message.text) == true) { 
-              insertSubjects(message);
               subjectsButtons ('اختر المرحلة الصفية المناسبة', message, "class");
+              insertSubjects (message);
             }
             else {
               telegramBot.sendMessage('اختر مادة من قائمة الازرار في الاسفل',message.chat.id);
@@ -174,4 +171,4 @@ function insertSubjects (message,step_number) {
         }
 }
 
-module.exports = {insertSubjects, subjectsButtons};
+module.exports = {subjectsSection, subjectsButtons};
