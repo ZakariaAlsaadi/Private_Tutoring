@@ -190,8 +190,8 @@ async function telegramButtons (message, step_number) {
                 }
         }
 
-        else if (step_number == 10) {
-          subjectsModel.insertSubjects(message);
+        else {
+          subjectsModel.insertSubjects(message, step_number);
         }
 }
 
