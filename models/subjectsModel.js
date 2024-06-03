@@ -166,9 +166,6 @@ function subjectsSection (message,step_number) {
             telegramBot.sendMessage('اجب بنعم او لا',message.chat.id);
           }
         }
-        else {
-
-        }
 }
 
 module.exports = {subjectsSection, subjectsButtons};
