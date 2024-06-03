@@ -175,7 +175,11 @@ async function telegramButtons (message, step_number) {
 
         else if (step_number == 8) {
           updateSignUp(message, step_number);
-          telegramBot.sendMessage("اين مكان تواجدك", message.from.id);
+          const replyKeyboard = {
+            keyboard: [[{ text: "لا" }]],
+            resize_keyboard: true,
+          };
+          await telegramBot.sendMessage("هل هناك منطقة اخرى ؟", message.chat.id, replyKeyboard);
         }
 
         else if (step_number == 9) {
