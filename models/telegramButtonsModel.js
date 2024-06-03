@@ -28,10 +28,15 @@ function addLocation (message) {
           let addedLocation = result[0].locations + " , " + message.text;
               database.query(
                 `UPDATE teachers SET ${teacher_step[8].the_step} = '${addedLocation}' WHERE telegram_id = ${message.chat.id};`
-              , function (err, resu, fields) 
+              , async function (err, resu, fields) 
         {
               if (err) throw err;
               console.log('success');
+              const replyKeyboard = {
+                keyboard: [[{ text: "لا" }]],
+                resize_keyboard: true,
+              };
+              await replyToButtonPressed("هل هناك منطقة اخرى ؟", message.chat.id, replyKeyboard);
         });
       });
       }
