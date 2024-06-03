@@ -36,7 +36,7 @@ function addLocation (message) {
                 keyboard: [[{ text: "لا" }]],
                 resize_keyboard: true,
               };
-              await replyToButtonPressed("هل هناك منطقة اخرى ؟", message.chat.id, replyKeyboard);
+              await telegramBot.sendMessage("هل هناك منطقة اخرى ؟", message.chat.id, replyKeyboard);
         });
       });
       }
