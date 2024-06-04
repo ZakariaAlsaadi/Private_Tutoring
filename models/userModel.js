@@ -23,11 +23,23 @@ function teacherOrNot (message)  // محمد لاقي اسم
 { 
      database.query( 
         `SELECT telegram_id FROM teachers WHERE telegram_id = ${message.chat.id}`
-    , function (err, result, fields) {
+    , function (err, teacherResult, fields) {
     if (err) throw err;  
-        if (result.length != 0)
-            teacherModel.askForSignUpInfo(message);            
-        else  respondToNormalUser(message);
+
+    database.query( 
+        `SELECT searching_step FROM telegram_user WHERE telegram_id = ${message.chat.id}`
+    , function (err, searchResult, fields) {
+    if (err) throw err;
+
+        if (teacherResult.length != 0)
+            teacherModel.askForSignUpInfo(message); 
+        
+        else if (searchResult[0].searching_step != 0) 
+            searchModel.getSearchingStep(message);
+    
+        else  
+        respondToNormalUser(message);
+    });
     });
 }
 

@@ -11,7 +11,16 @@ function askForSignUpInfo (message) {
           if (result[0].sign_up_step < 13) 
     telegramButtonsModel.telegramButtons (message,result[0].sign_up_step);
           else {
-                  if (message.text == "تعديل") {
+
+            database.query( 
+              `SELECT searching_step FROM telegram_user WHERE telegram_id = ${message.chat.id}`
+          , async function (err, searchResult, fields) {
+          if (err) throw err;
+              
+               if (searchResult[0].searching_step != 0) 
+                  searchModel.getSearchingStep(message);
+
+                  else if (message.text == "تعديل") {
                     database.query(`UPDATE teachers SET sign_up_step = 0 ;`, function (err, result, fields) {
                       if (err) throw err;
                       database.query(`DElETE FROM teacher_subject_class WHERE teacher_telegram_id = '${message.chat.id}';`
@@ -32,6 +41,7 @@ function askForSignUpInfo (message) {
                         searchModel.getSearchingStep(message);
                   else 
                         telegramBot.sendMessage("اضغط على /start لاظهار الخدمات المتاحة", message.from.id);
+                      });
           }
   });
 }
