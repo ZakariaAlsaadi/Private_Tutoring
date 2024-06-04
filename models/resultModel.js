@@ -2,22 +2,15 @@ const database = require("../db/connect");
 const TelegramBot = require("../telegram");
 const telegramBot = new TelegramBot;
 
-
-function deleteSearchRow (message) {
-    database.query(
-        `DELETE FROM searching_steps WHERE telegram_id = '${message.chat.id}'`
-        , function (err, finalResult, fields) {
-            if (err) throw err;
-        }
-    );
-}
 function sendTeachersList (message,teacherResult) {
 
+    if (teacherResult.length != 0) {
         telegramBot.sendMessage(
             `${teacherResult[0].username} ${teacherResult[0].first_name} ${teacherResult[0].last_name} ,
             هاتف : ${teacherResult[0].phonenumber} ,
             المبلغ ${teacherResult[0].lowest_price} - ${teacherResult[0].highest_price} ليرة سورية`
             ,message.chat.id);
+    }
         
 }
 
@@ -31,6 +24,7 @@ function filterTeachersOut2 (message,studentResult,subjectResult,studentRow) {
             sendTeachersList(message,teacherResult);
         });
     }
+    telegramBot.sendMessage("انتهت عملية البحث", message.chat.id);
 }
 
 function filterTeachersOut3 (message,studentResult,subjectResult,studentRow) {
@@ -42,6 +36,7 @@ function filterTeachersOut3 (message,studentResult,subjectResult,studentRow) {
             sendTeachersList(message,teacherResult);
         });
     }
+    telegramBot.sendMessage("انتهت عملية البحث", message.chat.id);
 }
 
 function filterTeachersOut4 (message,studentResult,subjectResult,studentRow) {
@@ -53,6 +48,7 @@ function filterTeachersOut4 (message,studentResult,subjectResult,studentRow) {
             sendTeachersList(message,teacherResult);
         });
     }
+    telegramBot.sendMessage("انتهت عملية البحث", message.chat.id);
 }
 
 function filterTeachersOut5 (message,studentResult,subjectResult,studentRow) {
@@ -64,6 +60,7 @@ function filterTeachersOut5 (message,studentResult,subjectResult,studentRow) {
             sendTeachersList(message,teacherResult);
         });
     }
+    telegramBot.sendMessage("انتهت عملية البحث", message.chat.id);
 }
 
 function filterTeachersOut (message) {  
