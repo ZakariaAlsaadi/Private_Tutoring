@@ -9,7 +9,7 @@ function getNewUser (message) {
         if (err) throw err;
         if (result.length == 0) {
             database.query(
-                `INSERT INTO telegram_user (id, user_name, first_name, last_name, telegram_id, teacher_profile_id) VALUES (NULL, '@${chat.username}', '${chat.first_name}', '${chat.last_name}', '${chat.id}', NULL);`
+                `INSERT INTO telegram_user (id, user_name, first_name, last_name, telegram_id, teacher_profile_id) VALUES (NULL, '@${message.chat.username}', '${message.chat.first_name}', '${message.chat.last_name}', '${message.chat.id}', NULL);`
             , function (err, result, fields) {
                 if (err) throw err;
                 console.log('added to the table');
