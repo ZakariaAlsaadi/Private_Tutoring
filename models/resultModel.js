@@ -9,7 +9,7 @@ function filterTeachersOut (message) {
         if (err) throw err;
 
         database.query(
-`SELECT * FROM teachers WHERE gender = '${studentResult.teacher_gender}' AND student_gender = '${studentResult.gender}' AND sassion_location = '${studentResult.sassion_location}' AND locations LIKE '%${studentResult.location}%' ;`
+`SELECT * FROM teachers WHERE gender = '${studentResult[0].teacher_gender}' AND student_gender = '${studentResult[0].gender}' AND sassion_location = '${studentResult[0].sassion_location}' AND locations LIKE '%${studentResult[0].location}%' ;`
             , function (err, teacherResult, fields) {
             if (err) throw err;
 
@@ -18,18 +18,20 @@ database.query(
             , function (err, subjectResult, fields) {
             if (err) throw err;
 
+            for (let index = 0; index < finalResult.length; index++) {
+
 database.query(
-`SELECT * FROM teachers WHERE teacher_id = '${subjectResult.teacher_telegram_id}';`
+`SELECT * FROM teachers WHERE teacher_id = '${subjectResult[i].teacher_telegram_id}';`
             , async function (err, finalResult, fields) {
             if (err) throw err;
-                if (finalResult.length == 0) {
-                    for (let index = 0; index < finalResult.length; index++) {
+                if (finalResult.length != 0) {
+                    
                         telegramBot.sendMessage( 
-                        `${finalResult.username} ${finalResult.first_name} ${finalResult.last_name} ,
-                        هاتف : ${finalResult.phonenumber} ,
-                        المبلغ ${finalResult.lowest_price} - ${finalResult.highest_price} ليرة سورية`
+                        `${finalResult[0].username} ${finalResult[0].first_name} ${finalResult[0].last_name} ,
+                        هاتف : ${finalResult[0].phonenumber} ,
+                        المبلغ ${finalResult[0].lowest_price} - ${finalResult[0].highest_price} ليرة سورية`
                         ,message.chat.id);
-                    }
+                    
                     await deleteSearchRow(message);
                 }
                 else {
@@ -37,6 +39,7 @@ database.query(
                     deleteSearchRow(message);
                 }
                 });
+                }
             });
         });
     });
