@@ -23,7 +23,7 @@ function searchMinus(message,value) {
         , function (err, result, fields) {
     if (err) throw err;
     database.query(
-        `UPDATE telegram_user SET searching_step = '${result[0].searching_step} - ${value}' WHERE telegram_id = ${message.chat.id};`
+        `UPDATE telegram_user SET searching_step = ${result[0].searching_step} - ${value} WHERE telegram_id = ${message.chat.id};`
         , function (err, result, fields) {
     if (err) throw err;
         });
