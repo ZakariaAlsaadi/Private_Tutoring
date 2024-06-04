@@ -10,7 +10,7 @@ function searchPlus(message,value) {
         , function (err, result, fields) {
     if (err) throw err;
     database.query(
-        `UPDATE SET telegram_user searching_step = '${result[0].searching_step} + ${value}' WHERE telegram_id = ${message.chat.id};`
+        `UPDATE telegram_user SET searching_step = '${result[0].searching_step} + ${value}' WHERE telegram_id = ${message.chat.id};`
         , function (err, result, fields) {
     if (err) throw err;
         });
@@ -23,7 +23,7 @@ function searchMinus(message,value) {
         , function (err, result, fields) {
     if (err) throw err;
     database.query(
-        `UPDATE SET telegram_user searching_step = '${result[0].searching_step} - ${value}' WHERE telegram_id = ${message.chat.id};`
+        `UPDATE telegram_user SET searching_step = '${result[0].searching_step} - ${value}' WHERE telegram_id = ${message.chat.id};`
         , function (err, result, fields) {
     if (err) throw err;
         });
@@ -186,7 +186,7 @@ async function getSearchingInfo (message,step_number) {
     else {
         telegramBot.sendMessage("حدث خطأ حاول مجدداً بعد قليل",message.chat.id);
         database.query(
-            `UPDATE SET telegram_user searching_step = 0 WHERE telegram_id = ${message.chat.id};`
+            `UPDATE telegram_user SET searching_step = 0 WHERE telegram_id = ${message.chat.id};`
             , function (err, result, fields) {
         if (err) throw err;
             });
