@@ -175,8 +175,9 @@ async function getSearchingInfo (message,step_number) {
             if (err) throw err;
             result = JSON.stringify(result);
             if (result.includes(message.text) == true) { 
+                updateSearchInfo(message, step_number);
                 resultModel.filterTeachersOut(message);
-                searchMinus(message,6);
+                searchMinus(message,7);
             }
             else {
                     subjectsModel.subjectsButtons('اختر المرحلة الصفية المناسبة', message, "class");

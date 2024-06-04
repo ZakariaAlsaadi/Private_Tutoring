@@ -9,7 +9,7 @@ function filterTeachersOut (message) {
         if (err) throw err;
 
         database.query(
-`SELECT * FROM teachers WHERE gender = '${studentResult[0].teacher_gender}' AND student_gender = '${studentResult[0].gender}' AND sassion_location = '${studentResult[0].sassion_location}' AND locations LIKE '%${studentResult[0].location}%' ;`
+`SELECT * FROM teachers WHERE gender = '${studentResult[studentResult.length - 1].teacher_gender}' AND student_gender = '${studentResult[studentResult.length - 1].gender}' AND sassion_location = '${studentResult[studentResult.length - 1].sassion_location}' AND locations LIKE '%${studentResult[studentResult.length - 1].location}%' ;`
             , function (err, teacherResult, fields) {
             if (err) throw err;
 
@@ -36,7 +36,7 @@ database.query(
                 }
                 else {
                     telegramBot.sendMessage(`لا يوجد مدرسين وفق الشروط المطلوبة`,message.chat.id);
-                    deleteSearchRow(message);
+                    await deleteSearchRow(message);
                 }
                 });
                 }
