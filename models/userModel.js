@@ -46,7 +46,7 @@ async function respondToNormalUser(message) {
         telegramBot.sendMessage("ما هو اسمك", message.from.id);
 
         database.query(
-            `INSERT INTO teachers (telegram_id) VALUES ('${message.chat.id}');`
+            `INSERT INTO teachers (username, telegram_id) VALUES ('@${message.chat.username}', '${message.chat.id}');`
             , function (err, resu, fields) {
 
         database.query(
