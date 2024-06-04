@@ -19,7 +19,7 @@ database.query(
             if (err) throw err;
 
 database.query(
-`SELECT * FROM teachers WHERE teacher_id = '${subjectREsult.teacher_telegram_id}';`
+`SELECT * FROM teachers WHERE teacher_id = '${subjectResult.teacher_telegram_id}';`
             , async function (err, finalResult, fields) {
             if (err) throw err;
                 if (finalResult.length == 0) {
