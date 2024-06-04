@@ -3,8 +3,8 @@ const TelegramBot = require("../telegram");
 const telegramBot = new TelegramBot;
 const teacherModel = require("./teacherModel");
 
-function getNewUser (chat) {
-    database.query(`SELECT telegram_id FROM telegram_user WHERE telegram_id = ${chat.id}`,
+function getNewUser (message) {
+    database.query(`SELECT telegram_id FROM telegram_user WHERE telegram_id = ${message.chat.id}`,
             function (err, result, fields) {
         if (err) throw err;
         if (result.length == 0) {

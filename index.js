@@ -27,7 +27,7 @@ function handleUserMessage(telegramResponse)
 
     console.log(from, chat, text);
 
-    userModel.getNewUser(chat);
+    userModel.getNewUser(message);
 
     userModel.teacherOrNot(message);
 }
