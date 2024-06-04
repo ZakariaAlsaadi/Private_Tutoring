@@ -68,9 +68,8 @@ function filterTeachersOut (message) {
         , function (err, studentResult, fields) {
         if (err) throw err; 
             let studentRow = studentResult.length -1;
-            let sqlRequest = `SELECT * FROM teacher_subject_class WHERE subject_id = '${studentResult[studentRow].subject}' AND class_id = '${studentResult[studentRow].class}';`
         database.query(
-            sqlRequest
+`SELECT * FROM teacher_subject_class WHERE subject_id = '${studentResult[studentRow].subject}' AND class_id = '${studentResult[studentRow].class}';`
             , function (err, subjectResult, fields) {
             if (err) throw err;
 
