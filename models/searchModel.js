@@ -35,7 +35,7 @@ function updateSearchInfo (message,step_number) {
     {  
       if (err) throw err;
               database.query(
-                `UPDATE teachers SET ${searcher_step[step_number - 1].search_step} = '${message.text}' WHERE telegram_id = ${message.chat.id};`
+                `UPDATE searching_steps SET ${searcher_step[step_number - 1].search_step} = '${message.text}' WHERE telegram_id = ${message.chat.id};`
               , function (err, result, fields) 
         {
               if (err) throw err;
