@@ -52,7 +52,7 @@ function getSearchingStep (message) {
     if (err) throw err;
         if (result[0].searching_step == 0) {
             database.query(
-                `INSERT INTO searching_step SET (telegram_id) VALUE (${message.chat.id});`
+                `INSERT INTO searching_steps SET (telegram_id) VALUES (${message.chat.id});`
                 , function (err, result, fields) {
             if (err) throw err;
                     telegramBot.sendMessage( "ادخل اسم المنطقة" , message.chat.id);
