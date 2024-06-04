@@ -44,13 +44,24 @@ function updateSearchInfo (message,step_number) {
     });
   }
 
+  function deleteSearchRow (message) {
+    database.query(
+        `DELETE FROM searching_steps WHERE telegram_id = '${message.chat.id}'`
+        , function (err, finalResult, fields) {
+            if (err) throw err;
+        }
+    );
+}
 
 function getSearchingStep (message) {
     database.query(
         `SELECT searching_step FROM telegram_user WHERE telegram_id = ${message.chat.id};`
-        , function (err, result, fields) {
+        , async function (err, result, fields) {
     if (err) throw err;
         if (result[0].searching_step == 0) {
+
+            deleteSearchRow(message);
+
             database.query(
                 `INSERT INTO searching_steps (telegram_id) VALUES ('${message.chat.id}');`
                 , function (err, result, fields) {

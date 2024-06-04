@@ -11,130 +11,85 @@ function deleteSearchRow (message) {
         }
     );
 }
+function sendTeachersList (message,teacherResult) {
 
-function part2ofSearching(message,teacherResult) {
-    console.log(teacherResult.length);
-    for (let i = 0; i < teacherResult.length; i++) {
-        console.log(`in for ${i}`);
-        part3ofSearching(message,teacherResult,i);
+        telegramBot.sendMessage(
+            `${teacherResult[0].username} ${teacherResult[0].first_name} ${teacherResult[0].last_name} ,
+            هاتف : ${teacherResult[0].phonenumber} ,
+            المبلغ ${teacherResult[0].lowest_price} - ${teacherResult[0].highest_price} ليرة سورية`
+            ,message.chat.id);
+        
+}
+
+function filterTeachersOut2 (message,studentResult,subjectResult,studentRow) {
+    for (let i = 0; i < subjectResult.length; i++) {
+        database.query(
+            `SELECT * FROM teachers WHERE telegram_id = ${subjectResult[i].teacher_telegram_id} AND locations LIKE '%${studentResult[studentRow].location}%' AND (student_gender = ${studentResult[studentRow].gender} OR student_gender = لا يهم);`
+        , function (err, teacherResult, fields) {
+            if (err) throw err;
+            sendTeachersList(message,teacherResult);
+        });
     }
 }
 
-function part3ofSearching(message,teacherResult,i) {
-
-
-    database.query(
-        `SELECT * FROM teacher_subject_class WHERE teacher_telegram_id = '${teacherResult[i].telegram_id}' AND subject_id = '${studentResult.subject}' AND class_id = '${studentResult.class}' ;`
-                    , function (err, subjectResult, fields) {
-                    if (err) throw err;
-                        console.log('before for');
-        
+function filterTeachersOut3 (message,studentResult,subjectResult,studentRow) {
+    for (let i = 0; i < subjectResult.length; i++) {
         database.query(
-        `SELECT * FROM teachers WHERE teacher_id = '${subjectResult[0].teacher_telegram_id}';`
-                    , async function (err, finalResult, fields) {
-                    if (err) throw err;
-                        if (finalResult.length != 0) {
-                            console.log('if true');
-                                telegramBot.sendMessage(`${finalResult[0].username} ${finalResult[0].first_name} ${finalResult[0].last_name} ,
-                                هاتف : ${finalResult[0].phonenumber} ,
-                                المبلغ ${finalResult[0].lowest_price} - ${finalResult[0].highest_price} ليرة سورية`
-                                ,message.chat.id);
-                            
-                            await deleteSearchRow(message);
-                        }
-                        else {
-                            console.log('if false');
-                            telegramBot.sendMessage(`لا يوجد مدرسين وفق الشروط المطلوبة`,message.chat.id);
-                            await deleteSearchRow(message);
-                        }
-                        });
-                        
-                        console.log('after for');
-                    });
-
+            `SELECT * FROM teachers WHERE telegram_id = ${subjectResult[i].teacher_telegram_id} AND locations LIKE '%${studentResult[studentRow].location}%' AND (student_gender = ${studentResult[studentRow].gender} OR student_gender = لا يهم) AND (sassion_location = ${studentResult[studentRow].gender} OR sassion_location = لا يهم);`
+        , function (err, teacherResult, fields) {
+            if (err) throw err;
+            sendTeachersList(message,teacherResult);
+        });
+    }
 }
 
-function filterTeachersOut (message) {
+function filterTeachersOut4 (message,studentResult,subjectResult,studentRow) {
+    for (let i = 0; i < subjectResult.length; i++) {
+        database.query(
+            `SELECT * FROM teachers WHERE telegram_id = ${subjectResult[i].teacher_telegram_id} AND locations LIKE '%${studentResult[studentRow].location}%' AND (student_gender = ${studentResult[studentRow].gender} OR student_gender = لا يهم) AND (gender = ${studentResult[studentRow].teacher_gender} OR gender = لا يهم);`
+        , function (err, teacherResult, fields) {
+            if (err) throw err;
+            sendTeachersList(message,teacherResult);
+        });
+    }
+}
+
+function filterTeachersOut5 (message,studentResult,subjectResult,studentRow) {
+    for (let i = 0; i < subjectResult.length; i++) {
+        database.query(
+            `SELECT * FROM teachers WHERE telegram_id = ${subjectResult[i].teacher_telegram_id} AND locations LIKE '%${studentResult[studentRow].location}%' AND (student_gender = ${studentResult[studentRow].gender} OR student_gender = لا يهم) AND (sassion_location = ${studentResult[studentRow].gender} OR sassion_location = لا يهم) AND (gender = ${studentResult[studentRow].teacher_gender} OR gender = لا يهم);`
+        , function (err, teacherResult, fields) {
+            if (err) throw err;
+            sendTeachersList(message,teacherResult);
+        });
+    }
+}
+
+function filterTeachersOut (message) {  
     database.query(
         `SELECT * FROM searching_steps WHERE telegram_id = ${message.chat.id};`
         , function (err, studentResult, fields) {
         if (err) throw err;
-            if (studentResult[studentResult.length - 1].teacher_gender == 'لا يهم'&& studentResult[studentResult.length - 1].sassion_location == 'لا يهم') {
-                database.query(
-                `SELECT * FROM teachers WHERE (student_gender = ${studentResult[studentResult.length - 1].gender} OR student_gender = لا يهم) AND locations LIKE %${studentResult[studentResult.length - 1].location}%;`
-            , function (err, teacherResult, fields) {
-            if (err) throw err;
-
-            part2ofSearching(message,teacherResult);
-            });
-            }
-            else if (studentResult[studentResult.length - 1].teacher_gender == 'لا يهم') {
-                database.query(
-                    `SELECT * FROM teachers WHERE (student_gender = ${studentResult[studentResult.length - 1].gender} OR student_gender = لا يهم) AND (sassion_location = ${studentResult[studentResult.length - 1].sassion_location} OR sassion_location = لا يهم) AND locations LIKE '%${studentResult[studentResult.length - 1].location}%' ;`
-                                , function (err, teacherResult, fields) {
-                                if (err) throw err;
-                    
-                                part2ofSearching(message,teacherResult);
-                                });
-            }
-            else if (studentResult[studentResult.length - 1].sassion_location == 'لا يهم') {
-                database.query(
-                    `SELECT * FROM teachers WHERE gender = ${studentResult[studentResult.length - 1].teacher_gender} AND (student_gender = ${studentResult[studentResult.length - 1].gender} OR student_gender = لا يهم) AND locations LIKE '%${studentResult[studentResult.length - 1].location}%' ;`
-                                , function (err, teacherResult, fields) {
-                                if (err) throw err;
-                    
-                                part2ofSearching(message,teacherResult);
-                                });
-            }
-                else {
+            let studentRow = studentResult.length -1;
         database.query(
-`SELECT * FROM teachers WHERE gender = ${studentResult[studentResult.length - 1].teacher_gender} AND (student_gender = ${studentResult[studentResult.length - 1].gender} OR student_gender = لا يهم) AND (sassion_location = ${studentResult[studentResult.length - 1].sassion_location} OR sassion_location = لا يهم) AND locations LIKE '%${studentResult[studentResult.length - 1].location}%' ;`
-            , function (err, teacherResult, fields) {
-            if (err) throw err;
-
-            part2ofSearching(message,teacherResult);
-
-            /*
-            
-            for (let i = 0; i < teacherResult.length; i++) {
-                console.log(`in for ${i}`);
-
-database.query(
-`SELECT * FROM teacher_subject_class WHERE teacher_telegram_id = '${teacherResult[i].telegram_id}' AND subject_id = '${studentResult.subject}' AND class_id = '${studentResult.class}' ;`
+            `SELECT * FROM teacher_subject_class WHERE subject_id = '${studentResult[studentRow].subject}' AND class_id = '${studentResult[studentRow].class}';`
             , function (err, subjectResult, fields) {
             if (err) throw err;
-                console.log('before for');
 
-database.query(
-`SELECT * FROM teachers WHERE teacher_id = '${subjectResult[0].teacher_telegram_id}';`
-            , async function (err, finalResult, fields) {
-            if (err) throw err;
-                if (finalResult.length != 0) {
-                    console.log('if true');
-                        telegramBot.sendMessage(`${finalResult[0].username} ${finalResult[0].first_name} ${finalResult[0].last_name} ,
-                        هاتف : ${finalResult[0].phonenumber} ,
-                        المبلغ ${finalResult[0].lowest_price} - ${finalResult[0].highest_price} ليرة سورية`
-                        ,message.chat.id);
-                    
-                    await deleteSearchRow(message);
-                }
-                else {
-                    console.log('if false');
-                    telegramBot.sendMessage(`لا يوجد مدرسين وفق الشروط المطلوبة`,message.chat.id);
-                    await deleteSearchRow(message);
-                }
-                });
-                
-                console.log('after for');
-            }); 
-        } */
+            if (studentResult[studentRow].teacher_gender == 'لا يهم'&& studentResult[studentRow].sassion_location == 'لا يهم') {
+                filterTeachersOut2(message,studentResult,subjectResult,studentRow);
+            }
+            else if (studentResult[studentRow].teacher_gender == 'لا يهم') {
+                filterTeachersOut3(message,studentResult,subjectResult,studentRow);
+            }
+            else if (studentResult[studentRow].sassion_location == 'لا يهم') {
+                filterTeachersOut4(message,studentResult,subjectResult,studentRow);
+            }
+            else {
+                filterTeachersOut5(message,studentResult,subjectResult,studentRow);
+            }
+            });
         });
-
-    }
-    });
-    console.log('end');
 }
-
-
 
 module.exports = {filterTeachersOut}
