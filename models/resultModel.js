@@ -18,7 +18,7 @@ database.query(
             , function (err, subjectResult, fields) {
             if (err) throw err;
 
-            for (let index = 0; index < finalResult.length; index++) {
+            for (let index = 0; index < subjectResult.length; index++) {
 
 database.query(
 `SELECT * FROM teachers WHERE teacher_id = '${subjectResult[i].teacher_telegram_id}';`
