@@ -2,6 +2,7 @@ const database = require("../db/connect");
 const TelegramBot = require("../telegram");
 const telegramBot = new TelegramBot;
 const teacherModel = require("./teacherModel");
+const searchModel = require('./searchModel')
 
 function getNewUser (message) {
     database.query(`SELECT telegram_id FROM telegram_user WHERE telegram_id = ${message.chat.id}`,
@@ -32,7 +33,7 @@ function teacherOrNot (message)  // محمد لاقي اسم
     if (err) throw err;
 
         if (teacherResult.length != 0)
-            teacherModel.askForSignUpInfo(message); 
+            teacherModel.askForSignUpInfo(message);
         
         else if (searchResult[0].searching_step != 0) 
             searchModel.getSearchingStep(message);
