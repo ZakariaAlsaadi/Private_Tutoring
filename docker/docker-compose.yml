@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mysql_teacher_search:
+    image: mysql:8.0
+    container_name: mysql_teacher_search
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: teacher_search
+      MYSQL_USER: zakaraya
+      MYSQL_PASSWORD: zeroonetwothree
+    ports:
+      - "3307:3306"
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin_teacher_search
+    environment:
+      PMA_HOST: mysql_teacher_search
+      PMA_USER: zakaraya
+      PMA_PASSWORD: zeroonetwothree
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql_teacher_search
+
+volumes:
+  mysql_data:

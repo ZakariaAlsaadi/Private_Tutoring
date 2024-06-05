@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 const Module = require("module");
 require('dotenv').config({ path: './.env' });
-
+console.log(process.env)
 let con = mysql.createConnection({
     host: process.env.db_host,
     user: process.env.db_user,
@@ -13,6 +13,7 @@ let con = mysql.createConnection({
 con.connect(function(err) {
     if (err) {
         console.log('Database Not connected')
+        console.log(err)
     }else{
         console.log("DB Connected!");
     }
