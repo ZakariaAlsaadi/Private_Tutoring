@@ -21,7 +21,7 @@ function askForSignUpInfo (message) {
                   searchModel.getSearchingStep(message);
 
                   else if (message.text == "تعديل") {
-                    database.query(`UPDATE teachers SET sign_up_step = 0 WHERE teacher_telegram_id = '${message.chat.id}';`, function (err, result, fields) {
+                    database.query(`UPDATE teachers SET sign_up_step = 0 WHERE telegram_id = '${message.chat.id}';`, function (err, result, fields) {
                       if (err) throw err;
                       database.query(`DElETE FROM teacher_subject_class WHERE teacher_telegram_id = '${message.chat.id}';`
                       , function (err, result, fields) {
