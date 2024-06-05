@@ -13,6 +13,7 @@ let con = mysql.createConnection({
 con.connect(function(err) {
     if (err) {
         console.log('Database Not connected')
+        console.log(err)
     }else{
         console.log("DB Connected!");
     }
