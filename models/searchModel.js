@@ -4,12 +4,6 @@ const telegramBot = new TelegramBot;
 const subjectsModel = require("./subjectsModel");
 const resultModel = require("./resultModel");
 
-function sleep(ms) {
-
-    return new Promise((resolve) => setInterval(resolve, ms));
-
-}
-
 function searchPlus(message,value) {
     database.query(
     `SELECT searching_step FROM telegram_user WHERE telegram_id = ${message.chat.id};`
@@ -200,10 +194,7 @@ async function getSearchingInfo (message,step_number) {
             if (err) throw err;
             result = JSON.stringify(result);
             if (result.includes(message.text) == true) { 
-                updateSearchInfo(message, step_number); /*
-                 await sleep(500);
-                resultModel.filterTeachersOut(message);
-                */
+                updateSearchInfo(message, step_number); 
                 searchMinus(message,7);
             }
             else {
