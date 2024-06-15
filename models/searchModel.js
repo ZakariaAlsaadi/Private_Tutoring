@@ -42,12 +42,18 @@ function updateSearchInfo (message,step_number) {
       if (err) throw err;
               database.query(
                 `UPDATE searching_steps SET ${searcher_step[step_number - 1].search_step} = '${message.text}' WHERE telegram_id = ${message.chat.id};`
-              , function (err, result, fields) 
+              , function (err, result1, fields) 
         {
               if (err) throw err;
-              if (result[0].class != null){
+              
+    database.query(`SELECT * FROM searching_steps WHERE telegram_id = ${message.chat.id};`, function (err, result, fields) 
+    {  
+      if (err) throw err;
+
+              if (result[step_number - 1].class != null){
                 resultModel.filterTeachersOut(message);
               }
+            });
               searchPlus(message,1);
         });
     });
