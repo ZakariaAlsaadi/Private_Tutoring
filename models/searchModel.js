@@ -45,6 +45,9 @@ function updateSearchInfo (message,step_number) {
               , function (err, result, fields) 
         {
               if (err) throw err;
+              if (result[0].class != null){
+                resultModel.filterTeachersOut(message);
+              }
               searchPlus(message,1);
         });
     });
@@ -192,9 +195,10 @@ async function getSearchingInfo (message,step_number) {
             if (err) throw err;
             result = JSON.stringify(result);
             if (result.includes(message.text) == true) { 
-                updateSearchInfo(message, step_number);
-                 await sleep(500)
+                updateSearchInfo(message, step_number); /*
+                 await sleep(500);
                 resultModel.filterTeachersOut(message);
+                */
                 searchMinus(message,7);
             }
             else {
