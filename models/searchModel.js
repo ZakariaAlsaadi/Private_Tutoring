@@ -121,9 +121,10 @@ async function getSearchingInfo (message,step_number) {
         }
     }
     else if (step_number == 3) {
-        if (message.text == "ذكر" || message.text == "انثى" || message.text == "لا يهم") {
-
-
+      
+      let choices = "ذكر انثى لا يهم"; 
+      if (choices.includes(message.text))
+      {
             const replyKeyboard = {
                 keyboard: [
                   [{ text: "منزل الطالب" }, { text: "منزل الاستاذ" }],
@@ -154,7 +155,9 @@ async function getSearchingInfo (message,step_number) {
         }
     }
     else if (step_number == 4) {
-        if (message.text == "منزل الاستاذ" || message.text == "منزل الطالب" || message.text == "لا يهم") {
+        let choices = "منزل الاستاذ منزل الطالب لا يهم"; 
+        if (choices.includes(message.text))
+        {
             subjectsModel.subjectsButtons("اختر المادة" , message , 'subject');
             updateSearchInfo(message, step_number);
         }
