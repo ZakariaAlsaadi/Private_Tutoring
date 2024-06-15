@@ -94,9 +94,9 @@ async function getSearchingInfo (message,step_number) {
           await telegramBot.sendMessage("هل انت ذكر ام انثى ؟", message.chat.id, replyKeyboard);
     }
     else if (step_number == 2) {
-        
-        if (message.text == "ذكر" || message.text == "انثى") {
-            
+      let choices = "ذكر انثى"; 
+      if (choices.includes(message.text))
+      {
             const replyKeyboard = {
                 keyboard: [
                   [{ text: "انثى" }, { text: "ذكر" }],
@@ -182,7 +182,7 @@ async function getSearchingInfo (message,step_number) {
         {  
             if (err) throw err;
             result = JSON.stringify(result);
-            if (result.includes(message.text) == true) { 
+            if (result.includes(message.text)) { 
                 subjectsModel.subjectsButtons('اختر المرحلة الصفية المناسبة', message, "class");
             updateSearchInfo(message, step_number);
             }
@@ -196,7 +196,7 @@ async function getSearchingInfo (message,step_number) {
           {  
             if (err) throw err;
             result = JSON.stringify(result);
-            if (result.includes(message.text) == true) { 
+            if (result.includes(message.text)) { 
                 updateSearchInfo(message, step_number); 
                 searchMinus(message,7);
             }
