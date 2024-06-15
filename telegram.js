@@ -29,6 +29,11 @@ class TelegramBot {
 
     async  sendMessage(Msg, Id, replyKeyboard) {
         let query = {chat_id: Id, text: Msg ,reply_markup: replyKeyboard};
+        if (query.reply_markup == null) {
+            query.reply_markup = {
+            remove_keyboard: true
+            }
+        }
         axios.post(`${TELEGRAM_API_URL}${this.botToken}/sendMessage`, query);
       }
 }

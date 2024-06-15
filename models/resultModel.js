@@ -9,14 +9,14 @@ function sendTeachersList (message,teacherResult) {
             `${teacherResult[0].username} ${teacherResult[0].first_name} ${teacherResult[0].last_name} ,
             هاتف : ${teacherResult[0].phonenumber} ,
             المبلغ ${teacherResult[0].lowest_price} - ${teacherResult[0].highest_price} ليرة سورية`
-            ,message.chat.id);
+            ,message.chat.id
+        );
 
         telegramBot.sendMessage(
             `لقد ظهرت في نتائج بحث`
             , teacherResult[0].telegram_id
         );
     }
-        
 }
 
 function filterTeachersOut2 (message,studentResult,subjectResult,studentRow) {
