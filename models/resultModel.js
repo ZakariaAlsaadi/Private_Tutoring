@@ -28,7 +28,7 @@ function filterTeachersOut2 (message,studentResult,subjectResult,studentRow) {
             sendTeachersList(message,teacherResult);
         });
     }
-    telegramBot.sendMessage("انتهت عملية البحث", message.chat.id);
+    telegramBot.sendMessage("انتهت عملية البحث , شكرا لاستخدام خدمتنا.", message.chat.id);
 }
 
 function filterTeachersOut3 (message,studentResult,subjectResult,studentRow) {
