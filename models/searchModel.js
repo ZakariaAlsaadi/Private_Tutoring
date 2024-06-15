@@ -45,15 +45,14 @@ function updateSearchInfo (message,step_number) {
               , function (err, result1, fields) 
         {
               if (err) throw err;
-              
     database.query(`SELECT * FROM searching_steps WHERE telegram_id = ${message.chat.id};`, function (err, result, fields) 
     {  
       if (err) throw err;
 
-              if (result[step_number - 1].class != null){
+              if (result[0].class != null){
                 resultModel.filterTeachersOut(message);
               }
-            });
+            }); 
               searchPlus(message,1);
         });
     });
