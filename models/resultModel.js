@@ -10,6 +10,11 @@ function sendTeachersList (message,teacherResult) {
             هاتف : ${teacherResult[0].phonenumber} ,
             المبلغ ${teacherResult[0].lowest_price} - ${teacherResult[0].highest_price} ليرة سورية`
             ,message.chat.id);
+
+        telegramBot.sendMessage(
+            `لقد ظهرت في نتائج بحث`
+            , teacherResult[0].telegram_id
+        );
     }
         
 }
