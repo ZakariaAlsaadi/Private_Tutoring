@@ -20,10 +20,11 @@ function sendTeachersList (message,teacherResult) {
 }
 
 function filterTeachersOut2 (message,studentResult,subjectResult,studentRow) {
+
     for (let i = 0; i < subjectResult.length; i++) {
         database.query(
-            `SELECT * FROM teachers WHERE telegram_id = ${subjectResult[i].teacher_telegram_id} AND locations LIKE '%${studentResult[studentRow].location}%' AND (student_gender = '${studentResult[studentRow].gender}' OR student_gender = 'لا يهم');`
-        , function (err, teacherResult, fields) {
+`SELECT * FROM teachers WHERE telegram_id = ${subjectResult[i].teacher_telegram_id} AND locations LIKE '%${studentResult[studentRow].location}%' AND (student_gender = '${studentResult[studentRow].gender}' OR student_gender = 'لا يهم');`
+            , function (err, teacherResult, fields) {
             if (err) throw err;
             sendTeachersList(message,teacherResult);
         });
@@ -34,37 +35,37 @@ function filterTeachersOut2 (message,studentResult,subjectResult,studentRow) {
 function filterTeachersOut3 (message,studentResult,subjectResult,studentRow) {
     for (let i = 0; i < subjectResult.length; i++) {
         database.query(
-            `SELECT * FROM teachers WHERE telegram_id = ${subjectResult[i].teacher_telegram_id} AND locations LIKE '%${studentResult[studentRow].location}%' AND (student_gender = '${studentResult[studentRow].gender}' OR student_gender = 'لا يهم') AND (sassion_location = '${studentResult[studentRow].gender}' OR sassion_location = 'لا يهم');`
+`SELECT * FROM teachers WHERE telegram_id = ${subjectResult[i].teacher_telegram_id} AND locations LIKE '%${studentResult[studentRow].location}%' AND (student_gender = '${studentResult[studentRow].gender}' OR student_gender = 'لا يهم') AND (sassion_location = '${studentResult[studentRow].gender}' OR sassion_location = 'لا يهم');`
         , function (err, teacherResult, fields) {
             if (err) throw err;
             sendTeachersList(message,teacherResult);
         });
     }
-    telegramBot.sendMessage("انتهت عملية البحث", message.chat.id);
+    telegramBot.sendMessage("انتهت عملية البحث , شكرا لاستخدام خدمتنا.", message.chat.id);
 }
 
 function filterTeachersOut4 (message,studentResult,subjectResult,studentRow) {
     for (let i = 0; i < subjectResult.length; i++) {
         database.query(
-            `SELECT * FROM teachers WHERE telegram_id = ${subjectResult[i].teacher_telegram_id} AND locations LIKE '%${studentResult[studentRow].location}%' AND (student_gender = '${studentResult[studentRow].gender}' OR student_gender = 'لا يهم') AND (gender = '${studentResult[studentRow].teacher_gender}' OR gender = 'لا يهم');`
+`SELECT * FROM teachers WHERE telegram_id = ${subjectResult[i].teacher_telegram_id} AND locations LIKE '%${studentResult[studentRow].location}%' AND (student_gender = '${studentResult[studentRow].gender}' OR student_gender = 'لا يهم') AND (gender = '${studentResult[studentRow].teacher_gender}' OR gender = 'لا يهم');`
         , function (err, teacherResult, fields) {
             if (err) throw err;
             sendTeachersList(message,teacherResult);
         });
     }
-    telegramBot.sendMessage("انتهت عملية البحث", message.chat.id);
+    telegramBot.sendMessage("انتهت عملية البحث , شكرا لاستخدام خدمتنا.", message.chat.id);
 }
 
 function filterTeachersOut5 (message,studentResult,subjectResult,studentRow) {
     for (let i = 0; i < subjectResult.length; i++) {
         database.query(
-            `SELECT * FROM teachers WHERE telegram_id = ${subjectResult[i].teacher_telegram_id} AND locations LIKE '%${studentResult[studentRow].location}%' AND (student_gender = '${studentResult[studentRow].gender}' OR student_gender = 'لا يهم') AND (sassion_location = '${studentResult[studentRow].gender}' OR sassion_location = 'لا يهم') AND (gender = '${studentResult[studentRow].teacher_gender}' OR gender = 'لا يهم');`
+`SELECT * FROM teachers WHERE telegram_id = ${subjectResult[i].teacher_telegram_id} AND locations LIKE '%${studentResult[studentRow].location}%' AND (student_gender = '${studentResult[studentRow].gender}' OR student_gender = 'لا يهم') AND (sassion_location = '${studentResult[studentRow].gender}' OR sassion_location = 'لا يهم') AND (gender = '${studentResult[studentRow].teacher_gender}' OR gender = 'لا يهم');`
         , function (err, teacherResult, fields) {
             if (err) throw err;
             sendTeachersList(message,teacherResult);
         });
     }
-    telegramBot.sendMessage("انتهت عملية البحث", message.chat.id);
+    telegramBot.sendMessage("انتهت عملية البحث , شكرا لاستخدام خدمتنا.", message.chat.id);
 }
 
 function filterTeachersOut (message) {  
@@ -77,13 +78,12 @@ function filterTeachersOut (message) {
 `SELECT * FROM teacher_subject_class WHERE subject_id = '${studentResult[studentRow].subject}' AND class_id = '${studentResult[studentRow].class}';`
             , function (err, subjectResult, fields) {
             if (err) throw err;
-
             if (studentResult[studentRow].teacher_gender == 'لا يهم'&& studentResult[studentRow].sassion_location == 'لا يهم') {
                 filterTeachersOut2(message,studentResult,subjectResult,studentRow);
             }
             else if (studentResult[studentRow].teacher_gender == 'لا يهم') {
                 filterTeachersOut3(message,studentResult,subjectResult,studentRow);
-            }
+                }
             else if (studentResult[studentRow].sassion_location == 'لا يهم') {
                 filterTeachersOut4(message,studentResult,subjectResult,studentRow);
             }
