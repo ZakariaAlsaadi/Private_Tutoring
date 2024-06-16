@@ -187,7 +187,7 @@ async function getSearchingInfo (message,step_number) {
             updateSearchInfo(message, step_number);
             }
             else {
-            subjectsModel.subjectsButtons("اختر مادة من الزرار الموجودة في الاسفل" , message , 'subject');
+            subjectsModel.subjectsButtons("اختر مادة من الازرار الموجودة في الاسفل" , message , 'subject');
             }
         });
     }
