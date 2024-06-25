@@ -20,7 +20,6 @@ function sendTeachersList (message,teacherResult) {
 }
 
 function filterTeachersOut2 (message,studentResult,subjectResult,studentRow) {
-
     for (let i = 0; i < subjectResult.length; i++) {
         database.query(
 `SELECT * FROM teachers WHERE telegram_id = ${subjectResult[i].teacher_telegram_id} AND locations LIKE '%${studentResult[studentRow].location}%' AND (student_gender = '${studentResult[studentRow].gender}' OR student_gender = 'لا يهم');`
@@ -80,7 +79,7 @@ function filterTeachersOut (message) {
             if (err) throw err;
             if (studentResult[studentRow].teacher_gender == 'لا يهم'&& studentResult[studentRow].sassion_location == 'لا يهم') {
                 filterTeachersOut2(message,studentResult,subjectResult,studentRow);
-            }
+             }
             else if (studentResult[studentRow].teacher_gender == 'لا يهم') {
                 filterTeachersOut3(message,studentResult,subjectResult,studentRow);
                 }

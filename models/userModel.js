@@ -28,15 +28,17 @@ function teacherOrNot (message)  // محمد لاقي اسم
     if (err) throw err;  
 
     database.query( 
-        `SELECT searching_step FROM telegram_user WHERE telegram_id = ${message.chat.id}`
+        `SELECT * FROM telegram_user WHERE telegram_id = ${message.chat.id}`
     , function (err, searchResult, fields) {
     if (err) throw err;
 
         if (teacherResult.length != 0)
             teacherModel.askForSignUpInfo(message);
         
-        else if (searchResult[0].searching_step != 0) 
+        else if (searchResult.length != 0) {
+           if (searchResult[0].searching_step != 0) 
             searchModel.getSearchingStep(message);
+        }
     
         else  
         respondToNormalUser(message);
