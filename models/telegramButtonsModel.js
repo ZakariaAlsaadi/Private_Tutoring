@@ -13,7 +13,6 @@ function addLocation (message) {
             , function (err, result, fields) 
       {
             if (err) throw err;
-              console.log('success');
       });
 
       subjectsModel.subjectsButtons("اختر المادة" , message , 'subject');
@@ -31,7 +30,6 @@ function addLocation (message) {
               , async function (err, resu, fields) 
         {
               if (err) throw err;
-              console.log('success');
               const replyKeyboard = {
                 keyboard: [[{ text: "لا" }]],
                 resize_keyboard: true,
@@ -52,7 +50,6 @@ function updateSignUp (message,step_number) {
               , function (err, result, fields) 
         {
               if (err) throw err;
-              console.log('success');
         });
     });
   }

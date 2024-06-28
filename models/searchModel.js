@@ -63,7 +63,7 @@ function updateSearchInfo (message,step_number) {
 
 function getSearchingStep (message) {
     database.query(
-        `SELECT searching_step FROM telegram_user WHERE telegram_id = '${message.chat.id}';`
+        `SELECT * FROM telegram_user WHERE telegram_id = '${message.chat.id}';`
         , async function (err, result, fields) {
     if (err) throw err;
         if (result[0].searching_step == 0) {
@@ -79,7 +79,7 @@ function getSearchingStep (message) {
                 });
         }
     else {
-        getSearchingInfo(message, result[0].searching_step)
+        getSearchingInfo(message, result[0].searching_step);
     }
   });
 }

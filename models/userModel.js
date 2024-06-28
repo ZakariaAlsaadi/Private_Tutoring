@@ -13,10 +13,8 @@ function getNewUser (message) {
                 `INSERT INTO telegram_user (id, user_name, first_name, last_name, telegram_id, teacher_profile_id) VALUES (NULL, '@${message.chat.username}', '${message.chat.first_name}', '${message.chat.last_name}', '${message.chat.id}', NULL);`
             , function (err, result, fields) {
                 if (err) throw err;
-                console.log('added to the table');
             });
         }
-        console.log('success');
     });
 }
 
@@ -32,16 +30,16 @@ function teacherOrNot (message)  // محمد لاقي اسم
     , function (err, searchResult, fields) {
     if (err) throw err;
 
-        if (teacherResult.length != 0)
+        if (teacherResult.length != 0) {
             teacherModel.askForSignUpInfo(message);
-        
-        else if (searchResult.length != 0) {
-           if (searchResult[0].searching_step != 0) 
-            searchModel.getSearchingStep(message);
         }
-    
-        else  
+        
+        else if (searchResult[0].searching_step != 0) {
+            searchModel.getSearchingStep(message);
+           }
+        else  {
         respondToNormalUser(message);
+        }
     });
     });
 }

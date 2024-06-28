@@ -21,11 +21,6 @@ const telegramBot = new TelegramBot(token);
 function handleUserMessage(telegramResponse)
 {
     const message = telegramResponse.message;
-    const from = message.from;
-    const chat = message.chat;
-    const text = message.text;
-
-    console.log(from, chat, text);
 
     try {
 

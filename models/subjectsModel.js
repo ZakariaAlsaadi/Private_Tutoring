@@ -29,7 +29,6 @@ function stepMinusTwo (message) {
           , function (err, result, fields) 
               {
                   if (err) throw err;
-                  console.log('success');
         });
   });
 }
@@ -111,7 +110,6 @@ async function subjectsButtons (askingForSubjectOrClass, message, subjectOrClass
     });
     }
     else {
-        console.log('error , you didnt choose subject or class');
         return 0 ;
     }
 }
