@@ -6,11 +6,11 @@ const resultModel = require("./resultModel");
 
 function searchPlus(message,value) {
     database.query(
-    `SELECT searching_step FROM telegram_user WHERE telegram_id = ${message.chat.id};`
+    `SELECT searching_step FROM telegram_user WHERE telegram_id = '${message.chat.id}';`
         , function (err, result, fields) {
     if (err) throw err;
     database.query(
-        `UPDATE telegram_user SET searching_step = ${result[0].searching_step} + ${value} WHERE telegram_id = ${message.chat.id};`
+        `UPDATE telegram_user SET searching_step = ${result[0].searching_step} + ${value} WHERE telegram_id = '${message.chat.id}';`
         , function (err, result, fields) {
     if (err) throw err;
         });
@@ -19,11 +19,11 @@ function searchPlus(message,value) {
 
 function searchMinus(message,value) {
     database.query(
-    `SELECT searching_step FROM telegram_user WHERE telegram_id = ${message.chat.id};`
+    `SELECT searching_step FROM telegram_user WHERE telegram_id = '${message.chat.id}';`
         , function (err, result, fields) {
     if (err) throw err;
     database.query(
-        `UPDATE telegram_user SET searching_step = ${result[0].searching_step} - ${value} WHERE telegram_id = ${message.chat.id};`
+        `UPDATE telegram_user SET searching_step = ${result[0].searching_step} - ${value} WHERE telegram_id = '${message.chat.id}';`
         , function (err, result, fields) {
     if (err) throw err;
         });
@@ -31,15 +31,15 @@ function searchMinus(message,value) {
 }
 
 function updateSearchInfo (message,step_number) {
-    database.query(`SELECT * FROM searching_list`, function (err, searcher_step, fields) 
+    database.query(`SELECT * FROM searching_list ;`, function (err, searcher_step, fields) 
     {  
       if (err) throw err;
               database.query(
-                `UPDATE searching_steps SET ${searcher_step[step_number - 1].search_step} = '${message.text}' WHERE telegram_id = ${message.chat.id};`
+                `UPDATE searching_steps SET ${searcher_step[step_number - 1].search_step} = '${message.text}' WHERE telegram_id = '${message.chat.id}';`
               , function (err, result1, fields) 
         {
               if (err) throw err;
-    database.query(`SELECT * FROM searching_steps WHERE telegram_id = ${message.chat.id};`, function (err, result, fields) 
+    database.query(`SELECT * FROM searching_steps WHERE telegram_id = '${message.chat.id}';`, function (err, result, fields) 
     {  
       if (err) throw err;
 
@@ -54,7 +54,7 @@ function updateSearchInfo (message,step_number) {
 
   function deleteSearchRow (message) {
     database.query(
-        `DELETE FROM searching_steps WHERE telegram_id = '${message.chat.id}'`
+        `DELETE FROM searching_steps WHERE telegram_id = '${message.chat.id}';`
         , function (err, finalResult, fields) {
             if (err) throw err;
         }
@@ -63,7 +63,7 @@ function updateSearchInfo (message,step_number) {
 
 function getSearchingStep (message) {
     database.query(
-        `SELECT searching_step FROM telegram_user WHERE telegram_id = ${message.chat.id};`
+        `SELECT searching_step FROM telegram_user WHERE telegram_id = '${message.chat.id}';`
         , async function (err, result, fields) {
     if (err) throw err;
         if (result[0].searching_step == 0) {
@@ -178,7 +178,7 @@ async function getSearchingInfo (message,step_number) {
     }
     else if (step_number == 5) {
 
-        database.query(`SELECT subject FROM subjects`, async function (err, result, fields) 
+        database.query(`SELECT subject FROM subjects ;`, async function (err, result, fields) 
         {  
             if (err) throw err;
             result = JSON.stringify(result);
@@ -192,7 +192,7 @@ async function getSearchingInfo (message,step_number) {
         });
     }
     else if (step_number == 6) {
-        database.query(`SELECT class_name FROM classes`, async function (err, result, fields) 
+        database.query(`SELECT class_name FROM classes ;`, async function (err, result, fields) 
           {  
             if (err) throw err;
             result = JSON.stringify(result);
@@ -208,7 +208,7 @@ async function getSearchingInfo (message,step_number) {
     else {
         telegramBot.sendMessage("حدث خطأ حاول مجدداً بعد قليل",message.chat.id);
         database.query(
-            `UPDATE telegram_user SET searching_step = 0 WHERE telegram_id = ${message.chat.id};`
+            `UPDATE telegram_user SET searching_step = 0 WHERE telegram_id = '${message.chat.id}';`
             , function (err, result, fields) {
         if (err) throw err;
             });

@@ -4,12 +4,12 @@ const telegramBot = new TelegramBot;
 const subjectsModel = require("./subjectsModel")
 
 function addLocation (message) {
-  database.query(`SELECT * FROM sign_up_steps`, function (err, teacher_step, fields) 
+  database.query(`SELECT * FROM sign_up_steps ;`, function (err, teacher_step, fields) 
     {  
       if (err) throw err;
       if (message.text == "لا") {
            database.query(
-              `UPDATE teachers SET sign_up_step = 10 WHERE telegram_id = ${message.chat.id};`
+              `UPDATE teachers SET sign_up_step = 10 WHERE telegram_id = '${message.chat.id}';`
             , function (err, result, fields) 
       {
             if (err) throw err;
@@ -21,13 +21,13 @@ function addLocation (message) {
       }
       else {
       
-        database.query(`SELECT locations FROM teachers WHERE telegram_id = ${message.chat.id}`, function (err, result, fields) 
+        database.query(`SELECT locations FROM teachers WHERE telegram_id = '${message.chat.id}';`, function (err, result, fields) 
         {  
           if (err) throw err;
 
           let addedLocation = result[0].locations + " , " + message.text;
               database.query(
-                `UPDATE teachers SET ${teacher_step[8].the_step} = '${addedLocation}' WHERE telegram_id = ${message.chat.id};`
+                `UPDATE teachers SET ${teacher_step[8].the_step} = '${addedLocation}' WHERE telegram_id = '${message.chat.id}';`
               , async function (err, resu, fields) 
         {
               if (err) throw err;
@@ -44,11 +44,11 @@ function addLocation (message) {
 }
 
 function updateSignUp (message,step_number) {
-    database.query(`SELECT * FROM sign_up_steps`, function (err, teacher_step, fields) 
+    database.query(`SELECT * FROM sign_up_steps ;`, function (err, teacher_step, fields) 
     {  
       if (err) throw err;
               database.query(
-                `UPDATE teachers SET ${teacher_step[step_number].the_step} = '${message.text}' , sign_up_step = ${step_number} + 1 WHERE telegram_id = ${message.chat.id};`
+                `UPDATE teachers SET ${teacher_step[step_number].the_step} = '${message.text}' , sign_up_step = ${step_number} + 1 WHERE telegram_id = '${message.chat.id}';`
               , function (err, result, fields) 
         {
               if (err) throw err;

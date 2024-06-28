@@ -5,7 +5,7 @@ const teacherModel = require("./teacherModel");
 const searchModel = require('./searchModel')
 
 function getNewUser (message) {
-    database.query(`SELECT telegram_id FROM telegram_user WHERE telegram_id = ${message.chat.id}`,
+    database.query(`SELECT telegram_id FROM telegram_user WHERE telegram_id = '${message.chat.id}';`,
             function (err, result, fields) {
         if (err) throw err;
         if (result.length == 0) {
@@ -23,12 +23,12 @@ function getNewUser (message) {
 function teacherOrNot (message)  // محمد لاقي اسم
 { 
      database.query( 
-        `SELECT telegram_id FROM teachers WHERE telegram_id = ${message.chat.id}`
+        `SELECT telegram_id FROM teachers WHERE telegram_id = '${message.chat.id}';`
     , function (err, teacherResult, fields) {
     if (err) throw err;  
 
     database.query( 
-        `SELECT * FROM telegram_user WHERE telegram_id = ${message.chat.id}`
+        `SELECT * FROM telegram_user WHERE telegram_id = '${message.chat.id}';`
     , function (err, searchResult, fields) {
     if (err) throw err;
 
@@ -65,10 +65,10 @@ async function respondToNormalUser(message) {
             , function (err, resu, fields) {
 
         database.query(
-            `SELECT id FROM teachers WHERE telegram_id = ${message.chat.id};`
+            `SELECT id FROM teachers WHERE telegram_id = '${message.chat.id}';`
             , function (err, result, fields) {
         database.query(
-            `UPDATE telegram_user SET teacher_profile_id = ${result[0].id} WHERE telegram_id = ${message.chat.id};`
+            `UPDATE telegram_user SET teacher_profile_id = ${result[0].id} WHERE telegram_id = '${message.chat.id}';`
             , function (err, res, fields) 
             {
                   if (err) throw err;

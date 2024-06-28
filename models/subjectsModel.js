@@ -4,12 +4,12 @@ const telegramBot = new TelegramBot;
 
 function stepPlus (message) {
   database.query(
-    `SELECT sign_up_step FROM teachers WHERE telegram_id = ${message.chat.id};`
+    `SELECT sign_up_step FROM teachers WHERE telegram_id = '${message.chat.id}';`
     , function (err, teacher_step, fields) 
     {  
       if (err) throw err;
         database.query(
-          `UPDATE teachers SET sign_up_step = ${teacher_step[0].sign_up_step} + 1 WHERE telegram_id = ${message.chat.id};`
+          `UPDATE teachers SET sign_up_step = ${teacher_step[0].sign_up_step} + 1 WHERE telegram_id = '${message.chat.id}';`
           , function (err, result, fields) 
               {
                   if (err) throw err;
@@ -19,13 +19,13 @@ function stepPlus (message) {
 
 function stepMinusTwo (message) {
   database.query(
-    `SELECT sign_up_step FROM teachers WHERE telegram_id = ${message.chat.id};`
+    `SELECT sign_up_step FROM teachers WHERE telegram_id = '${message.chat.id}';`
     , function (err, teacher_step, fields) 
     {  
       if (err) throw err;
 
         database.query(
-          `UPDATE teachers SET sign_up_step = ${teacher_step[0].sign_up_step} - 2 WHERE telegram_id = ${message.chat.id};`
+          `UPDATE teachers SET sign_up_step = ${teacher_step[0].sign_up_step} - 2 WHERE telegram_id = '${message.chat.id}';`
           , function (err, result, fields) 
               {
                   if (err) throw err;
@@ -36,7 +36,7 @@ function stepMinusTwo (message) {
 
 function insertSubjects (message) {
         database.query(
-          `INSERT INTO teacher_subject_class (teacher_telegram_id, subject_id) VALUES ('${message.chat.id}', '${message.text}')`
+          `INSERT INTO teacher_subject_class (teacher_telegram_id, subject_id) VALUES ('${message.chat.id}', '${message.text}');`
           , function (err, result, fields) 
           {  if (err) throw err; 
            });
@@ -45,12 +45,12 @@ function insertSubjects (message) {
 
 function insertClass (message) {
   database.query(
-    `SELECT * FROM teacher_subject_class WHERE teacher_telegram_id = ${message.chat.id}`
+    `SELECT * FROM teacher_subject_class WHERE teacher_telegram_id = '${message.chat.id}';`
     , function (err, result, fields) 
     {  if (err) throw err; 
 
       database.query(
-        `UPDATE teacher_subject_class SET class_id = '${message.text}' WHERE id = ${result[result.length -1].id}`
+        `UPDATE teacher_subject_class SET class_id = '${message.text}' WHERE id = ${result[result.length -1].id};`
         , function (err, result, fields) 
         {  if (err) throw err;  });
     });
@@ -60,7 +60,7 @@ function insertClass (message) {
 async function subjectsButtons (askingForSubjectOrClass, message, subjectOrClass) {
 
     if (subjectOrClass == "subject") {
-        database.query(`SELECT subject FROM subjects`, async function (err, subjectOrClassList, fields) 
+        database.query(`SELECT subject FROM subjects ;`, async function (err, subjectOrClassList, fields) 
     {  
       if (err) throw err;
             
@@ -86,7 +86,7 @@ async function subjectsButtons (askingForSubjectOrClass, message, subjectOrClass
 
     }
     else if (subjectOrClass == "class") {
-        database.query(`SELECT class_name FROM classes`, async function (err, subjectOrClassList, fields) 
+        database.query(`SELECT class_name FROM classes ;`, async function (err, subjectOrClassList, fields) 
     {  
       if (err) throw err;
             
@@ -118,7 +118,7 @@ async function subjectsButtons (askingForSubjectOrClass, message, subjectOrClass
 
 async function subjectsSection (message,step_number) {
         if (step_number == 10) {
-          database.query(`SELECT subject FROM subjects`, async function (err, result, fields) 
+          database.query(`SELECT subject FROM subjects ;`, async function (err, result, fields) 
           {  
             if (err) throw err;
             result = JSON.stringify(result);
@@ -135,7 +135,7 @@ async function subjectsSection (message,step_number) {
 
           
 
-          database.query(`SELECT class_name FROM classes`, async function (err, result, fields) 
+          database.query(`SELECT class_name FROM classes ;`, async function (err, result, fields) 
           {  
             if (err) throw err;
             result = JSON.stringify(result);

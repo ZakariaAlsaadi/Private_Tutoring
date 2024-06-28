@@ -69,7 +69,7 @@ function filterTeachersOut5 (message,studentResult,subjectResult,studentRow) {
 
 function filterTeachersOut (message) {  
     database.query(
-        `SELECT * FROM searching_steps WHERE telegram_id = ${message.chat.id};`
+        `SELECT * FROM searching_steps WHERE telegram_id = '${message.chat.id}';`
         , function (err, studentResult, fields) {
         if (err) throw err; 
             let studentRow = studentResult.length -1;

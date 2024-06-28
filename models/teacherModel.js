@@ -5,7 +5,7 @@ const telegramButtonsModel = require("./telegramButtonsModel");
 const searchModel = require("./searchModel");
 
 function askForSignUpInfo (message) {
-  database.query(`SELECT * FROM teachers WHERE telegram_id = ${message.chat.id};`
+  database.query(`SELECT * FROM teachers WHERE telegram_id = '${message.chat.id}';`
   , async function (err, result, fields) {
     if (err) throw err;
           if (result[0].sign_up_step < 13) 
@@ -13,7 +13,7 @@ function askForSignUpInfo (message) {
           else {
 
             database.query( 
-              `SELECT searching_step FROM telegram_user WHERE telegram_id = ${message.chat.id}`
+              `SELECT searching_step FROM telegram_user WHERE telegram_id = '${message.chat.id}';`
           , async function (err, searchResult, fields) {
           if (err) throw err;
               
