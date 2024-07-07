@@ -151,7 +151,7 @@ async function telegramButtons (message, step_number) {
 
         else if (step_number == 7) {
                 if (message.text == "منزل الاستاذ" || message.text == "منزل الطالب" || message.text == "لا يهم") {
-                  telegramBot.sendMessage("اين مكان تواجدك", message.from.id);
+                  telegramBot.sendMessage("اين مكان تواجدك (مثال : شارع الثورة او معربا ... )", message.from.id);
                   updateSignUp(message, step_number);
                 }
                 else {

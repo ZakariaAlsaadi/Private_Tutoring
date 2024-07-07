@@ -26,7 +26,7 @@ function askForSignUpInfo (message) {
                       database.query(`DElETE FROM teacher_subject_class WHERE teacher_telegram_id = '${message.chat.id}';`
                       , function (err, result, fields) {
                         if (err) throw err;
-                      telegramBot.sendMessage("ما هو اسمك", message.from.id);
+                      telegramBot.sendMessage("ما هو اسمك من غير الكنية", message.from.id);
                       });
                     });
                   }

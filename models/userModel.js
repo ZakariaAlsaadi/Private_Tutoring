@@ -56,7 +56,7 @@ async function respondToNormalUser(message) {
       }
 
     else if (message.text == "انا استاذ") {
-        telegramBot.sendMessage("ما هو اسمك", message.from.id);
+        telegramBot.sendMessage("ما هو اسمك من غير الكنية", message.from.id);
 
         database.query(
             `INSERT INTO teachers (username, telegram_id) VALUES ('@${message.chat.username}', '${message.chat.id}');`
