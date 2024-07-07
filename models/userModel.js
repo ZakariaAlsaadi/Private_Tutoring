@@ -52,7 +52,7 @@ async function respondToNormalUser(message) {
           ],
           resize_keyboard: true,
         };
-        await telegramBot.sendMessage("من انت ؟", message.chat.id, replyKeyboard);
+        await telegramBot.sendMessage("هل انت استاذ ؟ ام تبحث عن مدرس ؟", message.chat.id, replyKeyboard);
       }
 
     else if (message.text == "انا استاذ") {
